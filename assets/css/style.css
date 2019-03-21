@@ -1,0 +1,97 @@
+/* -------------------------------------
+ * General Style
+ * ------------------------------------- */
+h2.azrcrv-t {
+	margin: 2em 0 0 0;
+	font-size: 1.5em;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+/* -------------------------------------
+ * timeline
+ * ------------------------------------- */
+#azrcrv-t {
+	list-style: none;
+	margin: 50px 0 30px 180px;
+	padding-left: 30px;
+	border-left: 2px solid #007FFF;
+}
+#azrcrv-t li {
+	margin: 40px 0;
+	position: relative;
+}
+#azrcrv-t p {
+	margin: 0 0 15px;
+}
+
+.azrcrv-t-date {
+	margin-top: 2px;
+	top: 50%;
+	left: -150px;
+	font-size: 0.95em;
+	line-height: 20px;
+	position: absolute;
+}
+
+.azrcrv-t-title{
+	margin-top: 20px;
+}
+.azrcrv-t-circle {
+	margin-top: 7px;
+	top: 50%;
+	left: -36px;
+	width: 10px;
+	height: 10px;
+	background: #FFF;
+	border: 2px solid #007FFF;
+	border-radius: 50%;
+	display: block;
+	position: absolute;
+}
+
+.azrcrv-t-content {
+	padding: 50px 20px 0;
+}
+.azrcrv-t-content p {
+	text-align: justify;
+	word-break: break-word;
+	hyphens: auto;
+}
+
+label.azrcrv-t {
+	font-size: 1.3em;
+	position: absolute;
+	top: 20px;
+}
+
+/* -------------------------------------
+ * mobile phones (vertical version only)
+ * ------------------------------------- */
+@media screen and (max-width: 767px){
+	#azrcrv-t {
+		margin-left: 0;
+		padding-left: 0;
+		border-left: none;
+	}
+	#azrcrv-t li {
+		margin: 50px 0;
+	}
+
+	label.azrcrv-t {
+		width: 85%;
+		font-size: 1.1em;
+		white-space: nowrap;
+		display: block;
+	}
+
+	.azrcrv-t-content {
+		padding-top: 45px;
+		font-size: 0.9em;
+		line-height: 1.4;
+	}
+
+	.azrcrv-t-circle, .azrcrv-t-date {
+		display: none;
+	}
+}
