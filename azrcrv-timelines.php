@@ -433,7 +433,7 @@ function azrcrv_t_shortcode($atts, $content = null){
 }
 
 /**
- * Cretae custom Timeline post type.
+ * Create custom Timeline post type.
  *
  * @since 1.0.0
  *
