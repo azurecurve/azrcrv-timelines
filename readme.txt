@@ -26,6 +26,12 @@ To install the Timelines plugin:
 
 == Changelog ==
 Changes and feature additions for the Timelines plugin:
+= 1.0.1 =
+* Fix bug with css label.
+* Update azurecurve menu for easier maintenance.
+* Move require of azurecurve menu below security check.
+* Localization fixes.
+* Fix bug with icon display.
 = 1.0.0 =
 * First version for ClassicPress forked from azurecurve Timelines WordPress Plugin.
 

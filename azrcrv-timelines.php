@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a multiple timelines and place on pages or posts using the timeline shortcode.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines
@@ -17,13 +17,13 @@
  * ------------------------------------------------------------------------------
  */
 
-// include plugin menu
-require_once(dirname( __FILE__).'/pluginmenu/menu.php');
-
 // Prevent direct access.
 if (!defined('ABSPATH')){
 	die();
 }
+
+// include plugin menu
+require_once(dirname( __FILE__).'/pluginmenu/menu.php');
 
 /**
  * Setup registration activation hook, actions, filters and shortcodes.
@@ -293,7 +293,7 @@ function azrcrv_t_display_options(){
 					</td></tr>
 					
 				</table>
-				<input type="submit" value="Save Changes" class="button-primary" />
+				<input type="submit" value="<?php esc_html_e('Submit', 'timelines'); ?>" class="button-primary"/>
 			</form>
 		</fieldset>
 	</div>
@@ -409,7 +409,7 @@ function azrcrv_t_shortcode($atts, $content = null){
 		if (is_array($meta_fields)){
 			if (isset($meta_fields['timeline-link'])){
 				if (strlen($meta_fields['timeline-link']) > 0){
-					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='azc_t' src='".plugin_dir_url(__FILE__)."images/link.png' /></a>";
+					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='azc_t' src='".plugin_dir_url(__FILE__)."assets/images/link.png' /></a>";
 				}
 			}
 		}
@@ -457,11 +457,13 @@ function azrcrv_t_create_custom_post_type(){
 				'parent' => esc_html__('Parent Timeline Entry', 'azc_t')
 			),
 		'public' => true,
+		'exclude_from_search' => true,
+		'publicly_queryable' => false,
 		'menu_position' => 20,
 		'supports' => array('title', 'comments', 'trackbacks', 'revisions', 'excerpt', 'editor'),
 		'taxonomies' => array(''),
-		'menu_icon' => plugins_url('images/timelines-16x16.png', __FILE__),
-		'has_archive' => true
+		'menu_icon' => plugins_url('assets/images/timelines-16x16.png', __FILE__),
+		'has_archive' => false
 		)
 	);
 }

@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Timelines\n"
-"POT-Creation-Date: 2019-02-24 18:29+0000\n"
+"POT-Creation-Date: 2020-01-05 13:10+0000\n"
 "PO-Revision-Date: 2019-02-24 18:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: https://translate.azurecurve.co.uk/\n"
@@ -77,6 +78,10 @@ msgstr ""
 
 #: azrcrv-timelines.php:281
 msgid "Default Timeline Order By"
+msgstr ""
+
+#: azrcrv-timelines.php:296
+msgid "Submit"
 msgstr ""
 
 #: azrcrv-timelines.php:312
