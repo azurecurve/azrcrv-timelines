@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a multiple timelines and place on pages or posts using the timeline shortcode.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines
@@ -24,6 +24,10 @@ if (!defined('ABSPATH')){
 
 // include plugin menu
 require_once(dirname( __FILE__).'/pluginmenu/menu.php');
+register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_t');
+
+// include update client
+require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
 
 /**
  * Setup registration activation hook, actions, filters and shortcodes.
@@ -43,6 +47,7 @@ add_action('init', 'azrcrv_t_create_timeline_taxonomy', 0);
 add_action('add_meta_boxes', 'azrcrv_t_add_meta_box');
 add_action('save_post', 'azrcrv_t_save_meta_box');
 //add_action('the_posts', 'azrcrv_t_check_for_shortcode');
+add_action('plugins_loaded', 'azrcrv_b_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_t_add_plugin_action_link', 10, 2);
@@ -50,6 +55,17 @@ add_filter('plugin_action_links', 'azrcrv_t_add_plugin_action_link', 10, 2);
 // add shortcodes
 add_shortcode('timeline', 'azrcrv_t_shortcode');
 add_shortcode('TIMELINE', 'azrcrv_t_shortcode');
+
+/**
+ * Load language files.
+ *
+ * @since 1.0.0
+ *
+ */
+function azrcrv_b_load_languages() {
+    $plugin_rel_path = basename(dirname(__FILE__)).'/languages';
+    load_plugin_textdomain('azrcrv-b', false, $plugin_rel_path);
+}
 
 /**
  * Check if shortcode on current page and then load css and jqeury.
@@ -226,7 +242,7 @@ function azrcrv_t_display_options(){
 	?>
 	<div id="azrcrv-t-general" class="wrap">
 		<fieldset>
-			<h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<?php if(isset($_GET['options-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Settings have been saved.','timelines') ?></strong></p>
