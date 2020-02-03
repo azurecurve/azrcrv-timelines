@@ -47,7 +47,7 @@ add_action('init', 'azrcrv_t_create_timeline_taxonomy', 0);
 add_action('add_meta_boxes', 'azrcrv_t_add_meta_box');
 add_action('save_post', 'azrcrv_t_save_meta_box');
 //add_action('the_posts', 'azrcrv_t_check_for_shortcode');
-add_action('plugins_loaded', 'azrcrv_b_load_languages');
+add_action('plugins_loaded', 'azrcrv_t_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_t_add_plugin_action_link', 10, 2);
@@ -62,9 +62,9 @@ add_shortcode('TIMELINE', 'azrcrv_t_shortcode');
  * @since 1.0.0
  *
  */
-function azrcrv_b_load_languages() {
+function azrcrv_t_load_languages() {
     $plugin_rel_path = basename(dirname(__FILE__)).'/languages';
-    load_plugin_textdomain('azrcrv-b', false, $plugin_rel_path);
+    load_plugin_textdomain('timelines', false, $plugin_rel_path);
 }
 
 /**
