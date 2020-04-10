@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a multiple timelines and place on pages or posts using the timeline shortcode.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -600,7 +600,7 @@ function azrcrv_t_show_meta_box(){
  */
 function azrcrv_t_save_meta_box($post_id){   
 	// verify nonce
-	if (!wp_verify_nonce($_POST['azc_t_meta_box_nonce'], basename(__FILE__))){
+	if (!isset($_POST['azc_t_meta_box_nonce']) OR !wp_verify_nonce($_POST['azc_t_meta_box_nonce'], basename(__FILE__))){
 		return $post_id; 
 	}
 	// check autosave
