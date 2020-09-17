@@ -2,8 +2,8 @@
 /**
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
- * Description: Create a multiple timelines and place on pages or posts using the timeline shortcode.
- * Version: 1.1.6
+ * Description: Create a timeline and place on pages or posts using the timeline shortcode.
+ * Version: 1.2.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -130,7 +130,8 @@ function azrcrv_t_set_default_options($networkwide){
 						'date' => 'd/m/Y',
 						'dateleftalignment' => '-150px',
 						'orderby' => 'Ascending',
-						'updated' => strtotime('2020-04-04'),
+						'integrate-with-flags-and-nearby' => 0,
+						'updated' => strtotime('2020-09-17'),
 			);
 	
 	// set defaults for multi-site
@@ -340,6 +341,26 @@ function azrcrv_t_display_options(){
 						?>
 						</select>
 					</td></tr>
+				
+					<?php
+					if (azrcrv_t_is_plugin_active('azrcrv-flags/azrcrv-flags.php')){
+						$flags = '<a href="admin.php?page=azrcrv-f">Flags</a>';
+					}else{
+						$flags = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/flags/">Flags</a>';
+					}
+					?>
+					<?php
+					if (azrcrv_t_is_plugin_active('azrcrv-nearby/azrcrv-nearby.php')){
+						$nearby = '<a href="admin.php?page=azrcrv-n">Nearby</a>';
+					}else{
+						$nearby = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/nearby/">Nearby</a>';
+					}
+					?>
+					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(__('Integrate with %s and %s?', 'timelines'), $flags, $nearby); ?></label></th><td>
+						<fieldset><legend class="screen-reader-text"><span><?php printf(esc_html_e('Integrate with %s and %s?', 'timelines'), $flags, $nearby); ?></span></legend>
+							<label for="integrate-with-flags-and-nearby"><input name="integrate-with-flags-and-nearby" type="checkbox" id="integrate-with-flags-and-nearby" value="1" <?php checked('1', $options['integrate-with-flags-and-nearby']); ?> /><?php esc_html_e('Display flag next to timeline entry', 'timelines'); ?></label>
+						</fieldset>
+					</td></tr>
 					
 				</table>
 				<input type="submit" value="<?php esc_html_e('Submit', 'timelines'); ?>" class="button-primary"/>
@@ -347,6 +368,16 @@ function azrcrv_t_display_options(){
 		</fieldset>
 	</div>
 	<?php
+}
+
+/**
+ * Check if function active (included due to standard function failing due to order of load).
+ *
+ * @since 1.2.0
+ *
+ */
+function azrcrv_t_is_plugin_active($plugin){
+    return in_array($plugin, (array) get_option('active_plugins', array()));
 }
 
 /**
@@ -388,10 +419,16 @@ function azrcrv_t_save_options(){
 		if (isset($_POST[$option_name])){
 			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
 		}
-		
 		$option_name = 'orderby';
 		if (isset($_POST[$option_name])){
 			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
+		}
+		
+		$option_name = 'integrate-with-flags-and-nearby';
+		if (isset($_POST[$option_name])){
+			$options[$option_name] = 1;
+		}else{
+			$options[$option_name] = 0;
 		}
 		
 		update_option('azrcrv-t', $options);
@@ -415,7 +452,7 @@ function azrcrv_t_shortcode($atts, $content = null){
 	$options = get_option('azrcrv-t');
 	
 	$args = shortcode_atts(array(
-		'slug' => stripslashes(sanitize_text_field($options['timeline'])),
+		'slug' => stripslashes(sanitize_text_field($options['default'])),
 		'color' => stripslashes(sanitize_text_field($options['color'])),
 		'date' => stripslashes(sanitize_text_field($options['date'])),
 		'left' => stripslashes(sanitize_text_field($options['dateleftalignment'])),
@@ -454,11 +491,20 @@ function azrcrv_t_shortcode($atts, $content = null){
 		$return .= "<li class='azrcrv-t-work'>
 			<div class='azrcrv-t-relative'>
 			  <span class='azrcrv-t-title'><label class='azcrv-t' for='azrcrv-t-work$count'>".$timeline_entry->post_title;
+			  
+		// get link
 		$meta_fields = get_post_meta($timeline_entry->ID, 'azc_t_metafields', true);
 		if (is_array($meta_fields)){
 			if (isset($meta_fields['timeline-link'])){
 				if (strlen($meta_fields['timeline-link']) > 0){
+					$linked_post_id = url_to_postid($meta_fields['timeline-link']);
+					$linked_post_country = get_post_meta( $linked_post_id, '_azrcrv_n_country', true );
+					// get country and display flag
+					if (strlen($linked_post_country) > 0){
+						$return .= '&nbsp;'.do_shortcode('[flag='.$linked_post_country.']');
+					}
 					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='azc_t' src='".plugin_dir_url(__FILE__)."assets/images/link.png' /></a>";
+		
 				}
 			}
 		}

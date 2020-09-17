@@ -1,12 +1,12 @@
 === Timelines ===
 
 Description:	Create timelines showing the sequence of events and place in any post or page using a shortcode.
-Version:		1.1.6
+Version:		1.2.0
 Tags:			timeline, timelines, custom post type
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/timelines/
-Download link:	https://github.com/azurecurve/azrcrv-timelines/releases/download/v1.1.6/azrcrv-timelines.zip
+Download link:	https://github.com/azurecurve/azrcrv-timelines/releases/download/v1.2.0/azrcrv-timelines.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -25,6 +25,8 @@ Create timelines showing the sequence of events and place in any post or page us
 Create timelines showing the sequence of events and place in any post or page using a shortcode.
 
 Timelines create a custom post type for timeline entry; timelines are used by adding the **[timeline={timeline name}]** shortcode
+
+Integrate with [Flags](https://development.azurecurve.co.uk/classicpress-plugins/flags/) and [Nearby](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) to display a country flag next to timeline entry.; Nearby is required for the setting of a country on a post or page.
 
 This plugin is multisite compatible; each site will need settings to be configured in the admin dashboard.
 
@@ -50,6 +52,10 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 == Changelog ==
 
 # Changelog
+
+### [Version 1.2.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.2.0)
+ * Integrate with [Flags](https://development.azurecurve.co.uk/classicpress-plugins/flags/) and [Nearby](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) to display a country flag next to timeline entry.
+ * Fix bug with default timeline parameter when slug not provided.
 
 ### [Version 1.1.6](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.6)
  * Fix bug with undefined index in save metabox function.
