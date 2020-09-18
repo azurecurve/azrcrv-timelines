@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a timeline and place on pages or posts using the timeline shortcode.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -509,10 +509,12 @@ function azrcrv_t_shortcode($atts, $content = null){
 			if (isset($meta_fields['timeline-link'])){
 				if (strlen($meta_fields['timeline-link']) > 0){
 					$linked_post_id = url_to_postid($meta_fields['timeline-link']);
-					$linked_post_country = get_post_meta( $linked_post_id, '_azrcrv_n_country', true );
-					// get country and display flag
-					if (strlen($linked_post_country) > 0){
-						$return .= '&nbsp;'.do_shortcode('[flag='.$linked_post_country.']');
+					if (azrcrv_t_is_plugin_active('azrcrv-flags/azrcrv-flags.php') AND azrcrv_t_is_plugin_active('azrcrv-nearby/azrcrv-nearby.php') AND $options['integrate-with-flags-and-nearby'] == 1){
+						$linked_post_country = get_post_meta( $linked_post_id, '_azrcrv_n_country', true );
+						// get country and display flag
+						if (strlen($linked_post_country) > 0){
+							$return .= '&nbsp;'.do_shortcode('[flag='.$linked_post_country.']');
+						}
 					}
 					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='azc_t' src='".plugin_dir_url(__FILE__)."assets/images/link.png' /></a>";
 		
