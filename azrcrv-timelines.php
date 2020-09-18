@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a timeline and place on pages or posts using the timeline shortcode.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -293,7 +293,7 @@ function azrcrv_t_display_options(){
 					
 					<tr><th scope="row"><label for="color"><?php esc_html_e('Default Color', 'timelines'); ?></label></th><td>
 						<input type="text" name="color" value="<?php echo esc_html(stripslashes($options['color'])); ?>" class="regular-text" />
-						<p class="description"><?php esc_html_e('Specify default color of timeline (this can be overriden in the shortcode using the arguement "color="', 'timelines'); ?></p>
+						<p class="description"><?php esc_html_e('Specify default color of timeline (this can be overriden in the shortcode using the parameter "color=#007FFF;")', 'timelines'); ?></p>
 					</td></tr>
 					
 					<tr><th scope="row"><label for="timeline"><?php esc_html_e('Default Timeline', 'timelines'); ?></label></th><td>
@@ -345,21 +345,32 @@ function azrcrv_t_display_options(){
 					<?php
 					if (azrcrv_t_is_plugin_active('azrcrv-flags/azrcrv-flags.php')){
 						$flags = '<a href="admin.php?page=azrcrv-f">Flags</a>';
+						$flags_active = true;
 					}else{
 						$flags = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/flags/">Flags</a>';
+						$flags_active = false;
 					}
 					?>
 					<?php
 					if (azrcrv_t_is_plugin_active('azrcrv-nearby/azrcrv-nearby.php')){
 						$nearby = '<a href="admin.php?page=azrcrv-n">Nearby</a>';
+						$nearby_active = true;
 					}else{
 						$nearby = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/nearby/">Nearby</a>';
+						$nearby_active = false;
 					}
 					?>
-					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(__('Integrate with %s and %s?', 'timelines'), $flags, $nearby); ?></label></th><td>
-						<fieldset><legend class="screen-reader-text"><span><?php printf(esc_html_e('Integrate with %s and %s?', 'timelines'), $flags, $nearby); ?></span></legend>
-							<label for="integrate-with-flags-and-nearby"><input name="integrate-with-flags-and-nearby" type="checkbox" id="integrate-with-flags-and-nearby" value="1" <?php checked('1', $options['integrate-with-flags-and-nearby']); ?> /><?php esc_html_e('Display flag next to timeline entry', 'timelines'); ?></label>
-						</fieldset>
+					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(__('Display country flag?', 'timelines'), $flags, $nearby); ?></label></th><td>
+						<?php
+							if ($flags_active AND $nearby_active){ ?>
+								<fieldset><legend class="screen-reader-text"><span><?php printf(esc_html_e('Integrate with %s and %s to display country flag?', 'timelines'), $flags, $nearby); ?></span></legend>
+									<label for="integrate-with-flags-and-nearby"><input name="integrate-with-flags-and-nearby" type="checkbox" id="integrate-with-flags-and-nearby" value="1" <?php checked('1', $options['integrate-with-flags-and-nearby']); ?> /><?php esc_html_e('Display flag next to timeline entry', 'timelines'); ?></label>
+								</fieldset>
+							<?php
+							}else{
+								printf(__('Both %s and %s must be active for this function to be available.', 'timelines'), $flags, $nearby);
+							}
+						?>
 					</td></tr>
 					
 				</table>
