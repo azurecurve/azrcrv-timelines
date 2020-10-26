@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a timeline and place on pages or posts using the timeline shortcode.
- * Version: 1.2.2
+ * Version: 1.3.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -49,6 +49,8 @@ add_action('plugins_loaded', 'azrcrv_t_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_t_add_plugin_action_link', 10, 2);
+add_filter('codepotent_update_manager_image_path', 'azrcrv_t_custom_image_path');
+add_filter('codepotent_update_manager_image_url', 'azrcrv_t_custom_image_url');
 
 // add shortcodes
 add_shortcode('timeline', 'azrcrv_t_shortcode');
@@ -111,6 +113,32 @@ function azrcrv_t_check_for_shortcode($posts){
  */
 function azrcrv_t_load_css(){
 	wp_enqueue_style('azrcrv-t', plugins_url('assets/css/style.css', __FILE__), '', '1.0.0');
+}
+
+/**
+ * Custom plugin image path.
+ *
+ * @since 1.3.0
+ *
+ */
+function azrcrv_t_custom_image_path($path){
+    if (strpos($path, 'azrcrv-timelines') !== false){
+        $path = plugin_dir_path(__FILE__).'assets/pluginimages';
+    }
+    return $path;
+}
+
+/**
+ * Custom plugin image url.
+ *
+ * @since 1.3.0
+ *
+ */
+function azrcrv_t_custom_image_url($url){
+    if (strpos($url, 'azrcrv-timelines') !== false){
+        $url = plugin_dir_url(__FILE__).'assets/pluginimages';
+    }
+    return $url;
 }
 
 /**
@@ -242,8 +270,17 @@ function azrcrv_t_add_plugin_action_link($links, $file){
  *
  */
 function azrcrv_t_create_admin_menu(){
-	//global $admin_page_hooks;
 	
+	// add settings to timelines submenu
+	add_submenu_page(
+				'edit.php?post_type=timeline-entry'
+				,__('Timelines Settings', 'timelines')
+				,__('Settings', 'timelines')
+				,'manage_options'
+				,'azrcrv-t'
+				,'azrcrv_t_display_options');
+	
+	// add settings to azurecurve menu
 	add_submenu_page("azrcrv-plugin-menu"
 						,esc_html__("Timelines Settings", "timelines")
 						,esc_html__("Timelines", "timelines")
@@ -547,31 +584,31 @@ function azrcrv_t_shortcode($atts, $content = null){
  *
  */
 function azrcrv_t_create_custom_post_type(){
-	register_post_type('timeline-entry	',
+	register_post_type('timeline-entry',
 		array(
 				'labels' => array(
-				'name' => esc_html__('Timelines', 'azc_t'),
-				'singular_name' => esc_html__('Timeline', 'azc_t'),
-				'add_new' => esc_html__('Add New', 'azc_t'),
-				'add_new_item' => esc_html__('Add New Timeline Entry', 'azc_t'),
-				'edit' => esc_html__('Edit', 'azc_t'),
-				'edit_item' => esc_html__('Edit Timeline Entry', 'azc_t'),
-				'new_item' => esc_html__('New Timeline Entry', 'azc_t'),
-				'view' => esc_html__('View', 'azc_t'),
-				'view_item' => esc_html__('View Timeline Entry', 'azc_t'),
-				'search_items' => esc_html__('Search Timeline Entries', 'azc_t'),
-				'not_found' => esc_html__('No Timeline Entry found', 'azc_t'),
-				'not_found_in_trash' => esc_html__('No Timeline Entries found in Trash', 'azc_t'),
-				'parent' => esc_html__('Parent Timeline Entry', 'azc_t')
-			),
-		'public' => true,
-		'exclude_from_search' => true,
-		'publicly_queryable' => false,
-		'menu_position' => 20,
-		'supports' => array('title', 'comments', 'trackbacks', 'revisions', 'excerpt', 'editor'),
-		'taxonomies' => array(''),
-		'menu_icon' => plugins_url('assets/images/timelines-16x16.png', __FILE__),
-		'has_archive' => false
+									'name' => esc_html__('Timelines', 'azc_t'),
+									'singular_name' => esc_html__('Timeline Entry', 'azc_t'),
+									'add_new' => esc_html__('Add New', 'azc_t'),
+									'add_new_item' => esc_html__('Add New Timeline Entry', 'azc_t'),
+									'edit' => esc_html__('Edit', 'azc_t'),
+									'edit_item' => esc_html__('Edit Timeline Entry', 'azc_t'),
+									'new_item' => esc_html__('New Timeline Entry', 'azc_t'),
+									'view' => esc_html__('View', 'azc_t'),
+									'view_item' => esc_html__('View Timeline Entry', 'azc_t'),
+									'search_items' => esc_html__('Search Timeline Entries', 'azc_t'),
+									'not_found' => esc_html__('No Timeline Entry found', 'azc_t'),
+									'not_found_in_trash' => esc_html__('No Timeline Entries found in Trash', 'azc_t'),
+									'parent' => esc_html__('Parent Timeline Entry', 'azc_t')
+								),
+			'public' => true,
+			'exclude_from_search' => true,
+			'publicly_queryable' => false,
+			'menu_position' => 20,
+			'supports' => array('title', 'revisions', 'excerpt', 'editor'),
+			'taxonomies' => array(''),
+			'menu_icon' => plugins_url('assets/images/timelines-16x16.png', __FILE__),
+			'has_archive' => false
 		)
 	);
 }
@@ -584,8 +621,8 @@ function azrcrv_t_create_custom_post_type(){
  */
 function azrcrv_t_create_timeline_taxonomy(){
 $labels = array(
-		'name'              => esc_html__('Timelines', 'azc_t'),
-		'singular_name'     => esc_html__('Timeline', 'azc_t'),
+		'name'              => esc_html__('Timeline Parents', 'azc_t'),
+		'singular_name'     => esc_html__('Timeline Parent', 'azc_t'),
 		'search_items'      => esc_html__('Search Timelines', 'azc_t'),
 		'all_items'         => esc_html__('All Timelines', 'azc_t'),
 		'parent_item'       => esc_html__('Parent Timeline', 'azc_t'),
@@ -594,7 +631,7 @@ $labels = array(
 		'update_item'       => esc_html__('Update Timeline', 'azc_t'),
 		'add_new_item'      => esc_html__('Add New Timeline', 'azc_t'),
 		'new_item_name'     => esc_html__('New Timeline', 'azc_t'),
-		'menu_name'         => esc_html__('Timeline', 'azc_t'),
+		'menu_name'         => esc_html__('Timeline Parents', 'azc_t'),
 	);
 
 	$args = array(
@@ -619,7 +656,7 @@ $labels = array(
 function azrcrv_t_add_meta_box(){
 	add_meta_box(
 		'azc_t_meta_box', // $id
-		'Timeline Meta Fields', // $title
+		'Timeline Entry Meta Fields', // $title
 		'azrcrv_t_show_meta_box', // $callback
 		'timeline-entry', // $screen
 		'normal', // $context
@@ -644,7 +681,7 @@ function azrcrv_t_show_meta_box(){
 	<p>
 		<label for="azc_t_metafields[timeline-link]">Timeline Link</label>
 		&nbsp;&nbsp;&nbsp;
-		<input type="text" name="azc_t_metafields[timeline-link]" id="azc_t_metafields[timeline-link]" class="regular-text" value="<?php echo $meta_fields['timeline-link']; ?>">
+		<input type="text" name="azc_t_metafields[timeline-link]" id="azc_t_metafields[timeline-link]" style="width: 100%; " value="<?php if (isset($meta_fields['timeline-link'])) { echo $meta_fields['timeline-link']; } ?>">
 	</p>
 
 <?php
