@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a timeline and place on pages or posts using the timeline shortcode.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -154,6 +154,7 @@ function azrcrv_t_get_option($option_name){
 						'dateleftalignment' => '-150px',
 						'orderby' => 'Ascending',
 						'integrate-with-flags-and-nearby' => 0,
+						'flag-width' => 16,
 					);
 
 	$options = get_option($option_name, $defaults);
@@ -331,6 +332,14 @@ function azrcrv_t_display_options(){
 							}
 						?>
 					</td></tr>
+						
+					<?php if ($flags_active AND $nearby_active){ ?>
+						<tr><th scope="row"><?php esc_html_e('Flag width?', 'flags'); ?></th><td>
+							<fieldset><legend class="screen-reader-text"><span><?php esc_html_e('Flag width', 'flags'); ?></span></legend>
+								<label for="flag-width"><input type="number" name="flag-width" class="small-text" value="<?php echo $options['flag-width']; ?>" />px</label>
+							</fieldset>
+						</td></tr>
+					<?php } ?>
 					
 				</table>
 				<input type="submit" value="<?php esc_html_e('Submit', 'timelines'); ?>" class="button-primary"/>
@@ -399,6 +408,11 @@ function azrcrv_t_save_options(){
 			$options[$option_name] = 1;
 		}else{
 			$options[$option_name] = 0;
+		}
+		
+		$option_name = 'flag-width';
+		if (isset($_POST[$option_name])){
+			$options[$option_name] = sanitize_text_field(intval($_POST[$option_name]));
 		}
 		
 		update_option('azrcrv-t', $options);
@@ -472,7 +486,7 @@ function azrcrv_t_shortcode($atts, $content = null){
 						$linked_post_country = get_post_meta( $linked_post_id, '_azrcrv_n_country', true );
 						// get country and display flag
 						if (strlen($linked_post_country) > 0){
-							$return .= '&nbsp;'.do_shortcode('[flag='.$linked_post_country.']');
+							$return .= '&nbsp;'.azrcrv_f_flag(array( 'id' => $linked_post_country, 'width' => $options['flag-width'].'px'));
 						}
 					}
 					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='timelines' src='".plugin_dir_url(__FILE__)."assets/images/link.png' /></a>";
