@@ -1,12 +1,12 @@
 === Timelines ===
 
 Description:	Create timelines showing the sequence of events and place in any post or page using a shortcode.
-Version:		1.6.0
+Version:		1.7.0
 Tags:			timeline, timelines, custom post type
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/timelines/
-Download link:	https://github.com/azurecurve/azrcrv-timelines/releases/download/v1.6.0/azrcrv-timelines.zip
+Download link:	https://github.com/azurecurve/azrcrv-timelines/releases/download/v1.7.0/azrcrv-timelines.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -53,6 +53,10 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
+### [Version 1.7.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.0)
+ * Update translations to escape strings.
+ * Update azurecurve menu and logo.
+ 
 ### [Version 1.6.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.6.0)
  * Add width setting for integration with [Flags by azurecurve](https://development.azurecurve.co.uk/classicpress-plugins/flags/) plugin.
 

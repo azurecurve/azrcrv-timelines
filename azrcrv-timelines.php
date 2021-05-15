@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Timelines
  * Description: Create a timeline and place on pages or posts using the timeline shortcode.
- * Version: 1.6.0
+ * Version: 1.7.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/timelines/
@@ -179,7 +179,7 @@ function azrcrv_t_add_plugin_action_link($links, $file){
 	}
 
 	if ($file == $this_plugin){
-		$settings_link = '<a href="'.admin_url('admin.php?page=azrcrv-t').'"><img src="'.plugins_url('/pluginmenu/images/Favicon-16x16.png', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'timelines').'</a>';
+		$settings_link = '<a href="'.admin_url('admin.php?page=azrcrv-t').'"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'timelines').'</a>';
 		array_unshift($links, $settings_link);
 	}
 
@@ -197,8 +197,8 @@ function azrcrv_t_create_admin_menu(){
 	// add settings to timelines submenu
 	add_submenu_page(
 				'edit.php?post_type=timeline-entry'
-				,__('Timelines Settings', 'timelines')
-				,__('Settings', 'timelines')
+				,esc_html__('Timelines Settings', 'timelines')
+				,esc_html__('Settings', 'timelines')
 				,'manage_options'
 				,'azrcrv-t'
 				,'azrcrv_t_display_options');
@@ -231,7 +231,12 @@ function azrcrv_t_display_options(){
 	?>
 	<div id="azrcrv-t-general" class="wrap">
 		<fieldset>
-			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+			<h1>
+				<?php
+					echo '<a href="https://development.azurecurve.co.uk/classicpress-plugins/"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-right: 6px; height: 20px; width: 20px;" alt="azurecurve" /></a>';
+					esc_html_e(get_admin_page_title());
+				?>
+			</h1>
 			<?php if(isset($_GET['options-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Settings have been saved.','timelines') ?></strong></p>
@@ -320,7 +325,7 @@ function azrcrv_t_display_options(){
 						$nearby_active = false;
 					}
 					?>
-					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(__('Display country flag?', 'timelines'), $flags, $nearby); ?></label></th><td>
+					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(esc_html__('Display country flag?', 'timelines'), $flags, $nearby); ?></label></th><td>
 						<?php
 							if ($flags_active AND $nearby_active){ ?>
 								<fieldset><legend class="screen-reader-text"><span><?php printf(esc_html_e('Integrate with %s and %s to display country flag?', 'timelines'), $flags, $nearby); ?></span></legend>
@@ -328,7 +333,7 @@ function azrcrv_t_display_options(){
 								</fieldset>
 							<?php
 							}else{
-								printf(__('Both %s and %s must be active for this function to be available.', 'timelines'), $flags, $nearby);
+								printf(esc_html__('Both %s and %s must be active for this function to be available.', 'timelines'), $flags, $nearby);
 							}
 						?>
 					</td></tr>
