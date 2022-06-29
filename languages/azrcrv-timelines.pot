@@ -1,0 +1,203 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Timelines\n"
+"POT-Creation-Date: 2021-12-27 18:21+0000\n"
+"PO-Revision-Date: 2019-02-24 18:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: translate@azurecurve.co.uk/\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: azrcrv-timelines.php\n"
+
+#: azrcrv-timelines.php:182 azrcrv-timelines.php:201
+msgid "Settings"
+msgstr ""
+
+#: azrcrv-timelines.php:200 azrcrv-timelines.php:208
+msgid "Timelines Settings"
+msgstr ""
+
+#: azrcrv-timelines.php:209 azrcrv-timelines.php:531
+msgid "Timelines"
+msgstr ""
+
+#: azrcrv-timelines.php:223
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: azrcrv-timelines.php:242
+msgid "Settings have been saved."
+msgstr ""
+
+#: azrcrv-timelines.php:254
+msgid "Shortcode usage"
+msgstr ""
+
+#: azrcrv-timelines.php:256
+msgid ""
+"All parameters except slug are optional: [timeline slug='test-timeline' "
+"color='green' orderby='DESC/ASC' date='d/m/Y' left='-150px']"
+msgstr ""
+
+#: azrcrv-timelines.php:259
+msgid "Default Color"
+msgstr ""
+
+#: azrcrv-timelines.php:261
+msgid ""
+"Specify default color of timeline (this can be overriden in the shortcode "
+"using the parameter \"color=#007FFF;\")"
+msgstr ""
+
+#: azrcrv-timelines.php:264
+msgid "Default Timeline"
+msgstr ""
+
+#: azrcrv-timelines.php:286
+msgid "Default Date Format"
+msgstr ""
+
+#: azrcrv-timelines.php:288
+msgid "Specify default date format (default is d/M/Y)"
+msgstr ""
+
+#: azrcrv-timelines.php:291
+msgid "Date Left Alignment"
+msgstr ""
+
+#: azrcrv-timelines.php:293
+msgid "Specify left alignment for date (default for d/M/Y is -150px)"
+msgstr ""
+
+#: azrcrv-timelines.php:296
+msgid "Default Timeline Order By"
+msgstr ""
+
+#: azrcrv-timelines.php:328
+msgid "Display country flag?"
+msgstr ""
+
+#: azrcrv-timelines.php:331
+#, php-format
+msgid "Integrate with %s and %s to display country flag?"
+msgstr ""
+
+#: azrcrv-timelines.php:332
+msgid "Display flag next to timeline entry"
+msgstr ""
+
+#: azrcrv-timelines.php:336
+#, php-format
+msgid "Both %s and %s must be active for this function to be available."
+msgstr ""
+
+#: azrcrv-timelines.php:342
+msgid "Flag width?"
+msgstr ""
+
+#: azrcrv-timelines.php:343
+msgid "Flag width"
+msgstr ""
+
+#: azrcrv-timelines.php:350
+msgid "Submit"
+msgstr ""
+
+#: azrcrv-timelines.php:376
+msgid "You do not have sufficient permissions to perform this action."
+msgstr ""
+
+#: azrcrv-timelines.php:532
+msgid "Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:533
+msgid "Add New"
+msgstr ""
+
+#: azrcrv-timelines.php:534
+msgid "Add New Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:535
+msgid "Edit"
+msgstr ""
+
+#: azrcrv-timelines.php:536
+msgid "Edit Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:537
+msgid "New Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:538
+msgid "View"
+msgstr ""
+
+#: azrcrv-timelines.php:539
+msgid "View Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:540
+msgid "Search Timeline Entries"
+msgstr ""
+
+#: azrcrv-timelines.php:541
+msgid "No Timeline Entry found"
+msgstr ""
+
+#: azrcrv-timelines.php:542
+msgid "No Timeline Entries found in Trash"
+msgstr ""
+
+#: azrcrv-timelines.php:543
+msgid "Parent Timeline Entry"
+msgstr ""
+
+#: azrcrv-timelines.php:565 azrcrv-timelines.php:575
+msgid "Categories"
+msgstr ""
+
+#: azrcrv-timelines.php:566
+msgid "Category"
+msgstr ""
+
+#: azrcrv-timelines.php:567
+msgid "Search Categories"
+msgstr ""
+
+#: azrcrv-timelines.php:568
+msgid "All Categories"
+msgstr ""
+
+#: azrcrv-timelines.php:569
+msgid "Parent Category"
+msgstr ""
+
+#: azrcrv-timelines.php:570
+msgid "Parent Category:"
+msgstr ""
+
+#: azrcrv-timelines.php:571
+msgid "Edit Category"
+msgstr ""
+
+#: azrcrv-timelines.php:572
+msgid "Update Category"
+msgstr ""
+
+#: azrcrv-timelines.php:573
+msgid "Add New Category"
+msgstr ""
+
+#: azrcrv-timelines.php:574
+msgid "New Category"
+msgstr ""
