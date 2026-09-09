@@ -1,0 +1,351 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Timelines 2.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 00:00+0000\n"
+"PO-Revision-Date: 2026-08-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: translate@azurecurve.co.uk\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: azurecurve PRD-driven rewrite\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/functions-menu.php:36 includes/tabs-output.php:21
+msgid "Settings"
+msgstr ""
+
+#: includes/functions-menu.php:49
+msgid "Timelines Settings"
+msgstr ""
+
+#: includes/functions-menu.php:50 includes/functions-post-type.php:36
+msgid "Timelines"
+msgstr ""
+
+#: includes/functions-meta-box.php:26
+msgid "Timeline Entry Meta Fields"
+msgstr ""
+
+#: includes/functions-meta-box.php:45
+msgid "Timeline Link"
+msgstr ""
+
+#: includes/functions-meta-box.php:55
+msgid "Optional URL this timeline entry should link to (e.g. a full post or an external page)."
+msgstr ""
+
+#: includes/functions-post-type.php:37
+msgid "Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:38
+msgid "Add New"
+msgstr ""
+
+#: includes/functions-post-type.php:39
+msgid "Add New Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:40
+msgid "Edit"
+msgstr ""
+
+#: includes/functions-post-type.php:41
+msgid "Edit Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:42
+msgid "New Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:43
+msgid "View"
+msgstr ""
+
+#: includes/functions-post-type.php:44
+msgid "View Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:45
+msgid "Search Timeline Entries"
+msgstr ""
+
+#: includes/functions-post-type.php:46
+msgid "No Timeline Entry found"
+msgstr ""
+
+#: includes/functions-post-type.php:47
+msgid "No Timeline Entries found in Trash"
+msgstr ""
+
+#: includes/functions-post-type.php:48
+msgid "Parent Timeline Entry"
+msgstr ""
+
+#: includes/functions-post-type.php:67 includes/functions-post-type.php:77
+msgid "Categories"
+msgstr ""
+
+#: includes/functions-post-type.php:68
+msgid "Category"
+msgstr ""
+
+#: includes/functions-post-type.php:69
+msgid "Search Categories"
+msgstr ""
+
+#: includes/functions-post-type.php:70
+msgid "All Categories"
+msgstr ""
+
+#: includes/functions-post-type.php:71
+msgid "Parent Category"
+msgstr ""
+
+#: includes/functions-post-type.php:72
+msgid "Parent Category:"
+msgstr ""
+
+#: includes/functions-post-type.php:73
+msgid "Edit Category"
+msgstr ""
+
+#: includes/functions-post-type.php:74
+msgid "Update Category"
+msgstr ""
+
+#: includes/functions-post-type.php:75
+msgid "Add New Category"
+msgstr ""
+
+#: includes/functions-post-type.php:76
+msgid "New Category"
+msgstr ""
+
+#: includes/functions-settings.php:37
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/functions-settings.php:65
+msgid "Settings saved."
+msgstr ""
+
+#: includes/functions-settings.php:66
+msgid "Security check failed - please try again."
+msgstr ""
+
+#: includes/functions-settings.php:191
+msgid "You do not have permissions to perform this action."
+msgstr ""
+
+#: includes/functions-shortcode.php:73
+msgid "No timeline has been selected."
+msgstr ""
+
+#: includes/functions-shortcode.php:97
+msgid "This timeline has no entries yet."
+msgstr ""
+
+#: includes/tab-instructions.php:19 includes/tabs-output.php:22
+msgid "Instructions"
+msgstr ""
+
+#: includes/tab-instructions.php:21
+msgid "This plugin lets you build a timeline out of Timeline Entry posts, grouped by a Category, and display it on any post or page using the [timeline] shortcode."
+msgstr ""
+
+#: includes/tab-instructions.php:24
+msgid "Add one or more Timeline Entry posts (in the Timelines menu), giving each a title, a date, some content, and a Category to group it under."
+msgstr ""
+
+#: includes/tab-instructions.php:25
+msgid "Optionally set a Timeline Link on an entry, to make its title link out to a full write-up."
+msgstr ""
+
+#: includes/tab-instructions.php:26
+msgid "Place the shortcode on a post or page, e.g. [timeline slug=\"product-history\"]."
+msgstr ""
+
+#: includes/tab-instructions.php:29
+msgid "Shortcode attributes"
+msgstr ""
+
+#: includes/tab-instructions.php:33
+msgid "Attribute"
+msgstr ""
+
+#: includes/tab-instructions.php:34
+msgid "Description"
+msgstr ""
+
+#: includes/tab-instructions.php:40
+msgid "Category slug of the timeline to display. Defaults to the Default Timeline set on the Settings tab."
+msgstr ""
+
+#: includes/tab-instructions.php:44
+msgid "classic, alternating, or compact. Defaults to the Default Style set on the Settings tab."
+msgstr ""
+
+#: includes/tab-instructions.php:48
+msgid "Any valid CSS colour, overrides the Default Colour setting."
+msgstr ""
+
+#: includes/tab-instructions.php:52
+msgid "A PHP date() format string, overrides the Date Format setting."
+msgstr ""
+
+#: includes/tab-instructions.php:56
+msgid "CSS offset for the date (Classic style only), overrides the Date Left Alignment setting."
+msgstr ""
+
+#: includes/tab-instructions.php:60
+msgid "Ascending or Descending, overrides the Order By setting."
+msgstr ""
+
+#: includes/tab-instructions.php:69
+msgid "For example: %s"
+msgstr ""
+
+#: includes/tab-instructions.php:75
+msgid "Styling"
+msgstr ""
+
+#: includes/tab-instructions.php:76
+msgid "Every style is built from plain CSS custom properties, so you can restyle a timeline from your theme\\'s stylesheet without fighting inline styles - see the plugin\\'s Development page for details on the available custom properties and class names."
+msgstr ""
+
+#: includes/tab-other-plugins.php:45
+msgid "Other Plugins"
+msgstr ""
+
+#: includes/tab-other-plugins.php:54
+msgid "%1$s was one of the first plugin developers to start developing for ClassicPress; all plugins are available from %2$s and are integrated with the %3$s plugin for fully integrated, no hassle, updates."
+msgstr ""
+
+#: includes/tab-other-plugins.php:57
+msgid "Other plugins available from %s, which you are not using, are:"
+msgstr ""
+
+#: includes/tab-settings.php:33
+msgid "Classic (vertical line, current default look)"
+msgstr ""
+
+#: includes/tab-settings.php:34
+msgid "Alternating (entries zigzag left/right of a centred line)"
+msgstr ""
+
+#: includes/tab-settings.php:35
+msgid "Compact (single-line date + title list)"
+msgstr ""
+
+#: includes/tab-settings.php:42
+msgid "These settings control the default appearance of every [timeline] shortcode. Most can be overridden per shortcode using the color, date, left, orderby and style attributes - see the Instructions tab."
+msgstr ""
+
+#: includes/tab-settings.php:52
+msgid "Default Style"
+msgstr ""
+
+#: includes/tab-settings.php:65
+msgid "Default Colour"
+msgstr ""
+
+#: includes/tab-settings.php:68
+msgid "Any valid CSS colour, e.g. #007FFF."
+msgstr ""
+
+#: includes/tab-settings.php:72
+msgid "Default Timeline"
+msgstr ""
+
+#: includes/tab-settings.php:75
+msgid "- none -"
+msgstr ""
+
+#: includes/tab-settings.php:80
+msgid "Used when a [timeline] shortcode has no slug attribute."
+msgstr ""
+
+#: includes/tab-settings.php:84
+msgid "Date Format"
+msgstr ""
+
+#: includes/tab-settings.php:91
+msgid "Any format accepted by PHP\\'s date() function - see %s."
+msgstr ""
+
+#: includes/tab-settings.php:99
+msgid "Date Left Alignment"
+msgstr ""
+
+#: includes/tab-settings.php:102
+msgid "CSS offset for the date, e.g. -150px. Only used by the Classic style."
+msgstr ""
+
+#: includes/tab-settings.php:106
+msgid "Order By"
+msgstr ""
+
+#: includes/tab-settings.php:109
+msgid "Ascending"
+msgstr ""
+
+#: includes/tab-settings.php:110
+msgid "Descending"
+msgstr ""
+
+#: includes/tab-settings.php:115
+msgid "Flags / Nearby Integration"
+msgstr ""
+
+#: includes/tab-settings.php:119
+msgid "Show a country flag next to entries with a matching location, using the Flags plugin."
+msgstr ""
+
+#: includes/tab-settings.php:124
+msgid "Flags plugin detected as active."
+msgstr ""
+
+#: includes/tab-settings.php:126
+msgid "Flags plugin not detected as active - install it for this option to have any effect."
+msgstr ""
+
+#: includes/tab-settings.php:129
+msgid "Nearby plugin detected as active."
+msgstr ""
+
+#: includes/tab-settings.php:134
+msgid "Flag width:"
+msgstr ""
+
+#: includes/tab-settings.php:141
+msgid "On Uninstall"
+msgstr ""
+
+#: includes/tab-settings.php:145
+msgid "Also delete all Timeline Entries and their categories when this plugin is uninstalled."
+msgstr ""
+
+#: includes/tab-settings.php:147
+msgid "Leave unchecked to keep your timeline entries if you reinstall the plugin later. This only takes effect on uninstall, not on deactivation."
+msgstr ""
+
+#: includes/tab-settings.php:153
+msgid "Save Settings"
+msgstr ""
+
+#: includes/tabs-output.php:76
+msgid "Support"
+msgstr ""
+
+#: includes/tabs-output.php:85
+msgid "You can help support the development of our free plugins by donating a small amount of money."
+msgstr ""
+

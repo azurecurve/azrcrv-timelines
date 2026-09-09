@@ -1,77 +1,236 @@
 # [Timelines](https://development.azurecurve.co.uk/classicpress-plugins/timelines/)
-![Plugin Banner](/assets/pluginimages/banner-1544x500.png)
-
-# Description
+![Plugin Banner](/assets/images/banner-1544x500.png)
 
 Create timelines showing the sequence of events and place in any post or page using a shortcode.
 
-Timelines create a custom post type for timeline entry; timelines are used by adding the `[timeline={timeline name}]` shortcode
+## Description
+
+Create timelines showing the sequence of events and place in any post or page using a shortcode.
+
+Timelines create a custom post type for timeline entries, grouped by category; a timeline is displayed by adding the `[timeline slug="{category slug}"]` shortcode, which supports three selectable styles (Classic, Alternating and Compact) via a `style` attribute.
 
 Integrate with [Flags](https://development.azurecurve.co.uk/classicpress-plugins/flags/) and [Nearby](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) to display a country flag next to timeline entry.; Nearby is required for the setting of a country on a post or page.
 
 This plugin is multisite compatible; each site will need settings to be configured in the admin dashboard.
 
-# Installation Instructions
+## Installation
 
- * Download the latest release of the plugin from [GitHub](https://github.com/azurecurve/azrcrv-timelines/releases/latest/).
- * Upload the entire zip file using the Plugins upload function in your ClassicPress admin panel.
- * Activate the plugin.
- * Configure relevant settings via the configuration page in the admin control panel (azurecurve menu).
+* Download the latest release of the plugin from [GitHub](https://github.com/azurecurve/azrcrv-timelines/releases/latest/).
+* Upload the entire zip file using the Plugins upload function in your ClassicPress admin panel.
+* Activate the plugin.
+* Configure relevant settings via the configuration page in the admin control panel (azurecurve menu).
 
+## Frequently Asked Questions
 
-# About azurecurve
+### Can I translate this plugin?
 
-**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://directory.classicpress.net/plugins/update-manager) for fully integrated, no hassle, updates.
+Yes, the .pot file is in the plugins languages folder/; if you do translate this plugin, please sent the .po and .mo files to translations@azurecurve.co.uk for inclusion in the next version (full credit will be given).
 
-The other plugins available from **azurecurve** are:
- * Add Open Graph Tags - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/) / [download](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/)
- * Add Twitter Cards - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/) / [download](https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/latest/)
- * Avatars - [details](https://development.azurecurve.co.uk/classicpress-plugins/avatars/) / [download](https://github.com/azurecurve/azrcrv-avatars/releases/latest/)
- * Breadcrumbs - [details](https://development.azurecurve.co.uk/classicpress-plugins/breadcrumbs/) / [download](https://github.com/azurecurve/azrcrv-breadcrumbs/releases/latest/)
- * Call-out Boxes - [details](https://development.azurecurve.co.uk/classicpress-plugins/call-out-boxes/) / [download](https://github.com/azurecurve/azrcrv-call-out-boxes/releases/latest/)
- * Code - [details](https://development.azurecurve.co.uk/classicpress-plugins/code/) / [download](https://github.com/azurecurve/azrcrv-code/releases/latest/)
- * Comment Validator - [details](https://development.azurecurve.co.uk/classicpress-plugins/comment-validator/) / [download](https://github.com/azurecurve/azrcrv-comment-validator/releases/latest/)
- * Conditional Links - [details](https://development.azurecurve.co.uk/classicpress-plugins/conditional-links/) / [download](https://github.com/azurecurve/azrcrv-conditional-links/releases/latest/)
- * Contact Forms - [details](https://development.azurecurve.co.uk/classicpress-plugins/contact-forms/) / [download](https://github.com/azurecurve/azrcrv-contact-forms/releases/latest/)
- * Disable FLoC - [details](https://development.azurecurve.co.uk/classicpress-plugins/disable-floc/) / [download](https://github.com/azurecurve/azrcrv-disable-floc/releases/latest/)
- * Display After Post Content - [details](https://development.azurecurve.co.uk/classicpress-plugins/display-after-post-content/) / [download](https://github.com/azurecurve/azrcrv-display-after-post-content/releases/latest/)
- * Estimated Read Time - [details](https://development.azurecurve.co.uk/classicpress-plugins/estimated-read-time/) / [download](https://github.com/azurecurve/azrcrv-estimated-read-time/releases/latest/)
- * Events - [details](https://development.azurecurve.co.uk/classicpress-plugins/events/) / [download](https://github.com/azurecurve/azrcrv-events/releases/latest/)
- * Filtered Categories - [details](https://development.azurecurve.co.uk/classicpress-plugins/filtered-categories/) / [download](https://github.com/azurecurve/azrcrv-filtered-categories/releases/latest/)
- * Flags - [details](https://development.azurecurve.co.uk/classicpress-plugins/flags/) / [download](https://github.com/azurecurve/azrcrv-flags/releases/latest/)
- * Floating Featured Image - [details](https://development.azurecurve.co.uk/classicpress-plugins/floating-featured-image/) / [download](https://github.com/azurecurve/azrcrv-floating-featured-image/releases/latest/)
- * Gallery From Folder - [details](https://development.azurecurve.co.uk/classicpress-plugins/gallery-from-folder/) / [download](https://github.com/azurecurve/azrcrv-gallery-from-folder/releases/latest/)
- * Get GitHub File - [details](https://development.azurecurve.co.uk/classicpress-plugins/get-github-file/) / [download](https://github.com/azurecurve/azrcrv-get-github-file/releases/latest/)
- * Icons - [details](https://development.azurecurve.co.uk/classicpress-plugins/icons/) / [download](https://github.com/azurecurve/azrcrv-icons/releases/latest/)
- * Images - [details](https://development.azurecurve.co.uk/classicpress-plugins/images/) / [download](https://github.com/azurecurve/azrcrv-images/releases/latest/)
- * Insult Generator - [details](https://development.azurecurve.co.uk/classicpress-plugins/insult-generator/) / [download](https://github.com/azurecurve/azrcrv-insult-generator/releases/latest/)
- * Load Admin CSS - [details](https://development.azurecurve.co.uk/classicpress-plugins/load-admin-css/) / [download](https://github.com/azurecurve/azrcrv-load-admin-css/releases/latest/)
- * Loop Injection - [details](https://development.azurecurve.co.uk/classicpress-plugins/loop-injection/) / [download](https://github.com/azurecurve/azrcrv-loop-injection/releases/latest/)
- * Maintenance Mode - [details](https://development.azurecurve.co.uk/classicpress-plugins/maintenance-mode/) / [download](https://github.com/azurecurve/azrcrv-maintenance-mode/releases/latest/)
- * Markdown - [details](https://development.azurecurve.co.uk/classicpress-plugins/markdown/) / [download](https://github.com/azurecurve/azrcrv-markdown/releases/latest/)
- * Mobile Detection - [details](https://development.azurecurve.co.uk/classicpress-plugins/mobile-detection/) / [download](https://github.com/azurecurve/azrcrv-mobile-detection/releases/latest/)
- * Multisite Favicon - [details](https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon/) / [download](https://github.com/azurecurve/azrcrv-multisite-favicon/releases/latest/)
- * Nearby - [details](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) / [download](https://github.com/azurecurve/azrcrv-nearby/releases/latest/)
- * Page Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/page-index/) / [download](https://github.com/azurecurve/azrcrv-page-index/releases/latest/)
- * Post Archive - [details](https://development.azurecurve.co.uk/classicpress-plugins/post-archive/) / [download](https://github.com/azurecurve/azrcrv-post-archive/releases/latest/)
- * Redirect - [details](https://development.azurecurve.co.uk/classicpress-plugins/redirect/) / [download](https://github.com/azurecurve/azrcrv-redirect/releases/latest/)
- * Remove Revisions - [details](https://development.azurecurve.co.uk/classicpress-plugins/remove-revisions/) / [download](https://github.com/azurecurve/azrcrv-remove-revisions/releases/latest/)
- * RSS Feed - [details](https://development.azurecurve.co.uk/classicpress-plugins/rss-feed/) / [download](https://github.com/azurecurve/azrcrv-rss-feed/releases/latest/)
- * RSS Suffix - [details](https://development.azurecurve.co.uk/classicpress-plugins/rss-suffix/) / [download](https://github.com/azurecurve/azrcrv-rss-suffix/releases/latest/)
- * Series Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/series-index/) / [download](https://github.com/azurecurve/azrcrv-series-index/releases/latest/)
- * Shortcodes in Comments - [details](https://development.azurecurve.co.uk/classicpress-plugins/shortcodes-in-comments/) / [download](https://github.com/azurecurve/azrcrv-shortcodes-in-comments/releases/latest/)
- * Shortcodes in Widgets - [details](https://development.azurecurve.co.uk/classicpress-plugins/shortcodes-in-widgets/) / [download](https://github.com/azurecurve/azrcrv-shortcodes-in-widgets/releases/latest/)
- * Sidebar Login - [details](https://development.azurecurve.co.uk/classicpress-plugins/sidebar-login/) / [download](https://github.com/azurecurve/azrcrv-sidebar-login/releases/latest/)
- * SMTP - [details](https://development.azurecurve.co.uk/classicpress-plugins/smtp/) / [download](https://github.com/azurecurve/azrcrv-smtp/releases/latest/)
- * Snippets - [details](https://development.azurecurve.co.uk/classicpress-plugins/snippets/) / [download](https://github.com/azurecurve/azrcrv-snippets/releases/latest/)
- * Strong Password Generator - [details](https://development.azurecurve.co.uk/classicpress-plugins/strong-password-generator/) / [download](https://github.com/azurecurve/azrcrv-strong-password-generator/releases/latest/)
- * Tag Cloud - [details](https://development.azurecurve.co.uk/classicpress-plugins/tag-cloud/) / [download](https://github.com/azurecurve/azrcrv-tag-cloud/releases/latest/)
- * Taxonomy Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/taxonomy-index/) / [download](https://github.com/azurecurve/azrcrv-taxonomy-index/releases/latest/)
- * Taxonomy Order - [details](https://development.azurecurve.co.uk/classicpress-plugins/taxonomy-order/) / [download](https://github.com/azurecurve/azrcrv-taxonomy-order/releases/latest/)
- * Theme Switcher - [details](https://development.azurecurve.co.uk/classicpress-plugins/theme-switcher/) / [download](https://github.com/azurecurve/azrcrv-theme-switcher/releases/latest/)
- * Timelines - [details](https://development.azurecurve.co.uk/classicpress-plugins/timelines/) / [download](https://github.com/azurecurve/azrcrv-timelines/releases/latest/)
- * Toggle Show/Hide - [details](https://development.azurecurve.co.uk/classicpress-plugins/toggle-showhide/) / [download](https://github.com/azurecurve/azrcrv-toggle-showhide/releases/latest/)
- * Update Admin Menu - [details](https://development.azurecurve.co.uk/classicpress-plugins/update-admin-menu/) / [download](https://github.com/azurecurve/azrcrv-update-admin-menu/releases/latest/)
- * URL Shortener - [details](https://development.azurecurve.co.uk/classicpress-plugins/url-shortener/) / [download](https://github.com/azurecurve/azrcrv-url-shortener/releases/latest/)
- * Username Protection - [details](https://development.azurecurve.co.uk/classicpress-plugins/username-protection/) / [download](https://github.com/azurecurve/azrcrv-username-protection/releases/latest/)
- * Widget Announcements - [details](https://development.azurecurve.co.uk/classicpress-plugins/widget-announcements/) / [download](https://github.com/azurecurve/azrcrv-widget-announcements/releases/latest/)
+### Is this plugin compatible with both WordPress and ClassicPress?
+
+This plugin is developed for ClassicPress, but will likely work on WordPress.
+
+## Changelog
+
+### [Version 2.0.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v2.0.0)
+
+* Security: sanitise and escape the Timeline Link meta field on save and on output (previously saved with no sanitisation and echoed with no escaping).
+* Security: escape the timeline entry title and link URL in the shortcode output (previously echoed unescaped).
+* Fix: the Timeline Link meta box's permission check read a $_POST key that was never submitted, so it never actually ran on save.
+* Fix: a blank settings option on a fresh install caused a PHP warning/deprecation when saving settings.
+* Fix: uninstall.php referenced an undefined constant, so the settings option was never removed on uninstall; uninstall is now also multisite-aware.
+* Fix: the plugin action link filter fired for every plugin on the Plugins page instead of just this one.
+* Fix: an inconsistent default meant a blank date-left-alignment value pushed the date the wrong direction.
+* Fix: the front-end stylesheet was cached indefinitely (a hard-coded version string) and passed an invalid dependency argument.
+* New: the [timeline] shortcode now supports a style attribute with three selectable layouts - Classic (refined default), Alternating (zigzag either side of a centred line) and Compact (single-line date + title) - each themeable via CSS custom properties instead of per-element inline styles.
+* New: an opt-in "Delete timeline entries and taxonomy terms on uninstall" setting (off by default); uninstall only removes plugin settings unless this is enabled.
+* Update: rewrote the shortcode's database query to use WP_Query instead of a hand-written SQL join.
+* Update: internal code brought in line with the current azurecurve plugin pattern (namespace, constants, tabbed settings page, admin JS/CSS split, vanilla JS).
+* Update: `Text Domain` changed to `azrcrv-t` and `Requires PHP` raised to 8.2 (7.4 is end-of-life).
+* Update readme.md and remove readme.txt (not required for ClassicPress).
+* Update azurecurve menu.
+
+### [Version 1.7.5](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.5)
+
+* Update plugin header for compatibility with ClasssicPress v2.
+
+### [Version 1.7.4](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.4)
+
+* Update plugin header and readme for compatibility with ClassicPress Directory v2.
+* Update Update Manager to version 2.5.0.
+
+### [Version 1.7.3](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.3)
+
+* Update readme file for compatibility with ClassicPress Directory.
+
+### [Version 1.7.2](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.2)
+
+* Update readme files.
+* Update language template.
+* Fix bug with azurecurve menu.
+
+### [Version 1.7.1](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.1)
+
+* Update azurecurve menu.
+* Update readme files.
+
+### [Version 1.7.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.7.0)
+
+* Update translations to escape strings.
+* Update azurecurve menu and logo.
+
+### [Version 1.6.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.6.0)
+
+* Add width setting for integration with [Flags by azurecurve](https://development.azurecurve.co.uk/classicpress-plugins/flags/) plugin.
+
+### [Version 1.5.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.5.0)
+
+* Rename taxonomy to Categories.
+* Update azurecurve menu.
+* Fix bug in azurecurve menu.
+
+### [Version 1.4.1](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.4.1)
+
+* Fix version number bug.
+
+### [Version 1.4.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.4.0)
+
+* Fix plugin action link to use admin_url() function.
+* Rewrite option handling so defaults not stored in database on plugin initialisation.
+* Update azurecurve plugin menu.
+* Amend to only load css when shortcode on page.
+
+### [Version 1.3.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.3.0)
+
+* Add Settings to Timelines admin menu.
+* Rename Timeline Parents submenu page.
+* Amend width of Timeline Link field in Timeline Entry metabox.
+* Add plugin icon and banner.
+
+### [Version 1.2.2](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.2.2)
+
+* Fix bug with display of flag when Flags and Nearby installed, but not active.
+
+### [Version 1.2.1](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.2.1)
+
+* Fix bug with display of flag display option.
+
+### [Version 1.2.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.2.0)
+
+* Integrate with [Flags](https://development.azurecurve.co.uk/classicpress-plugins/flags/) and [Nearby](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) to display a country flag next to timeline entry.
+* Fix bug with default timeline parameter when slug not provided.
+
+### [Version 1.1.6](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.6)
+
+* Fix bug with undefined index in save metabox function.
+
+### [Version 1.1.5](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.5)
+
+* Fix bug with setting of default options.
+* Fix bug with plugin menu.
+* Update plugin menu css.
+
+### [Version 1.1.4](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.4)
+
+* Rewrite default option creation function to resolve several bugs.
+* Upgrade azurecurve plugin to store available plugins in options.
+
+### [Version 1.1.3](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.3)
+
+* Update Update Manager class to v2.0.0.
+* Update action link.
+* Update azurecurve menu icon with compressed image.
+
+### [Version 1.1.2](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.2)
+
+* Correct problem with version number.
+
+### [Version 1.1.1](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.1)
+
+* Fix bug with incorrect language load text domain.
+
+### [Version 1.1.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.1.0)
+
+* Add integration with Update Manager for automatic updates.
+* Fix issue with display of azurecurve menu.
+* Change settings page heading.
+* Add load_plugin_textdomain to handle translations.
+
+### [Version 1.0.1](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.0.1)
+
+* Fix bug with css label.
+* Update azurecurve menu for easier maintenance.
+* Move require of azurecurve menu below security check.
+* Localization fixes.
+* Fix bug with icon display.
+
+### [Version 1.0.0](https://github.com/azurecurve/azrcrv-timelines/releases/tag/v1.0.0)
+
+* Initial release for ClassicPress forked from azurecurve Timelines WordPress Plugin.
+
+## Other Notes
+
+### About azurecurve
+
+**azurecurve** was one of the first plugin developers to start developing for ClassicPress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://directory.classicpress.net/plugins/update-manager) for fully integrated, no hassle, updates.
+
+The plugins available from **azurecurve** are:
+
+* Add Open Graph Tags - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/) / [download](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/)
+* Add Twitter Cards - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/) / [download](https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/latest/)
+* Avatars - [details](https://development.azurecurve.co.uk/classicpress-plugins/avatars/) / [download](https://github.com/azurecurve/azrcrv-avatars/releases/latest/)
+* BBCode - [details](https://development.azurecurve.co.uk/classicpress-plugins/bbcode/) / [download](https://github.com/azurecurve/azrcrv-bbcode/releases/latest/)
+* Breadcrumbs - [details](https://development.azurecurve.co.uk/classicpress-plugins/breadcrumbs/) / [download](https://github.com/azurecurve/azrcrv-breadcrumbs/releases/latest/)
+* Broken Links - [details](https://development.azurecurve.co.uk/classicpress-plugins/broken-links/) / [download](https://github.com/azurecurve/azrcrv-broken-links/releases/latest/)
+* Call-out Boxes - [details](https://development.azurecurve.co.uk/classicpress-plugins/call-out-boxes/) / [download](https://github.com/azurecurve/azrcrv-call-out-boxes/releases/latest/)
+* Chroma - [details](https://development.azurecurve.co.uk/classicpress-plugins/chroma/) / [download](https://github.com/azurecurve/azrcrv-chroma/releases/latest/)
+* Code - [details](https://development.azurecurve.co.uk/classicpress-plugins/code/) / [download](https://github.com/azurecurve/azrcrv-code/releases/latest/)
+* Comment Validator - [details](https://development.azurecurve.co.uk/classicpress-plugins/comment-validator/) / [download](https://github.com/azurecurve/azrcrv-comment-validator/releases/latest/)
+* Conditional Links - [details](https://development.azurecurve.co.uk/classicpress-plugins/conditional-links/) / [download](https://github.com/azurecurve/azrcrv-conditional-links/releases/latest/)
+* Contact Forms - [details](https://development.azurecurve.co.uk/classicpress-plugins/contact-forms/) / [download](https://github.com/azurecurve/azrcrv-contact-forms/releases/latest/)
+* Disable FLoC - [details](https://development.azurecurve.co.uk/classicpress-plugins/disable-floc/) / [download](https://github.com/azurecurve/azrcrv-disable-floc/releases/latest/)
+* Display After Post Content - [details](https://development.azurecurve.co.uk/classicpress-plugins/display-after-post-content/) / [download](https://github.com/azurecurve/azrcrv-display-after-post-content/releases/latest/)
+* Estimated Read Time - [details](https://development.azurecurve.co.uk/classicpress-plugins/estimated-read-time/) / [download](https://github.com/azurecurve/azrcrv-estimated-read-time/releases/latest/)
+* Events - [details](https://development.azurecurve.co.uk/classicpress-plugins/events/) / [download](https://github.com/azurecurve/azrcrv-events/releases/latest/)
+* Feed to Post - [details](https://development.azurecurve.co.uk/classicpress-plugins/feed-to-post/) / [download](https://github.com/azurecurve/azrcrv-feed-to-post/releases/latest/)
+* Filtered Categories - [details](https://development.azurecurve.co.uk/classicpress-plugins/filtered-categories/) / [download](https://github.com/azurecurve/azrcrv-filtered-categories/releases/latest/)
+* Flags - [details](https://development.azurecurve.co.uk/classicpress-plugins/flags/) / [download](https://github.com/azurecurve/azrcrv-flags/releases/latest/)
+* Floating Featured Image - [details](https://development.azurecurve.co.uk/classicpress-plugins/floating-featured-image/) / [download](https://github.com/azurecurve/azrcrv-floating-featured-image/releases/latest/)
+* Get GitHub File - [details](https://development.azurecurve.co.uk/classicpress-plugins/get-github-file/) / [download](https://github.com/azurecurve/azrcrv-get-github-file/releases/latest/)
+* Icons - [details](https://development.azurecurve.co.uk/classicpress-plugins/icons/) / [download](https://github.com/azurecurve/azrcrv-icons/releases/latest/)
+* Image Optimiser - [details](https://development.azurecurve.co.uk/classicpress-plugins/image-optimiser/) / [download](https://github.com/azurecurve/azrcrv-image-optimiser/releases/latest/)
+* Images - [details](https://development.azurecurve.co.uk/classicpress-plugins/images/) / [download](https://github.com/azurecurve/azrcrv-images/releases/latest/)
+* Insult Generator - [details](https://development.azurecurve.co.uk/classicpress-plugins/insult-generator/) / [download](https://github.com/azurecurve/azrcrv-insult-generator/releases/latest/)
+* Load Admin CSS - [details](https://development.azurecurve.co.uk/classicpress-plugins/load-admin-css/) / [download](https://github.com/azurecurve/azrcrv-load-admin-css/releases/latest/)
+* Loop Injection - [details](https://development.azurecurve.co.uk/classicpress-plugins/loop-injection/) / [download](https://github.com/azurecurve/azrcrv-loop-injection/releases/latest/)
+* Lorem Ipsum Generator - [details](https://development.azurecurve.co.uk/classicpress-plugins/lorem-ipsum-generator/) / [download](https://github.com/azurecurve/azrcrv-lorem-ipsum-generator/releases/latest/)
+* Maintenance Mode - [details](https://development.azurecurve.co.uk/classicpress-plugins/maintenance-mode/) / [download](https://github.com/azurecurve/azrcrv-maintenance-mode/releases/latest/)
+* Markdown - [details](https://development.azurecurve.co.uk/classicpress-plugins/markdown/) / [download](https://github.com/azurecurve/azrcrv-markdown/releases/latest/)
+* Nearby - [details](https://development.azurecurve.co.uk/classicpress-plugins/nearby/) / [download](https://github.com/azurecurve/azrcrv-nearby/releases/latest/)
+* Page Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/page-index/) / [download](https://github.com/azurecurve/azrcrv-page-index/releases/latest/)
+* Post Archive - [details](https://development.azurecurve.co.uk/classicpress-plugins/post-archive/) / [download](https://github.com/azurecurve/azrcrv-post-archive/releases/latest/)
+* Quiz Engine - [details](https://development.azurecurve.co.uk/classicpress-plugins/quiz-engine/) / [download](https://github.com/azurecurve/azrcrv-quiz-engine/releases/latest/)
+* Read GitHub File - [details](https://development.azurecurve.co.uk/classicpress-plugins/read-github-file/) / [download](https://github.com/azurecurve/azrcrv-read-github-file/releases/latest/)
+* Redirect - [details](https://development.azurecurve.co.uk/classicpress-plugins/redirect/) / [download](https://github.com/azurecurve/azrcrv-redirect/releases/latest/)
+* Remove Revisions - [details](https://development.azurecurve.co.uk/classicpress-plugins/remove-revisions/) / [download](https://github.com/azurecurve/azrcrv-remove-revisions/releases/latest/)
+* RSS Feed - [details](https://development.azurecurve.co.uk/classicpress-plugins/rss-feed/) / [download](https://github.com/azurecurve/azrcrv-rss-feed/releases/latest/)
+* RSS Suffix - [details](https://development.azurecurve.co.uk/classicpress-plugins/rss-suffix/) / [download](https://github.com/azurecurve/azrcrv-rss-suffix/releases/latest/)
+* Series Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/series-index/) / [download](https://github.com/azurecurve/azrcrv-series-index/releases/latest/)
+* Shortcodes in Comments - [details](https://development.azurecurve.co.uk/classicpress-plugins/shortcodes-in-comments/) / [download](https://github.com/azurecurve/azrcrv-shortcodes-in-comments/releases/latest/)
+* Shortcodes in Widgets - [details](https://development.azurecurve.co.uk/classicpress-plugins/shortcodes-in-widgets/) / [download](https://github.com/azurecurve/azrcrv-shortcodes-in-widgets/releases/latest/)
+* SMTP - [details](https://development.azurecurve.co.uk/classicpress-plugins/smtp/) / [download](https://github.com/azurecurve/azrcrv-smtp/releases/latest/)
+* Snippets - [details](https://development.azurecurve.co.uk/classicpress-plugins/snippets/) / [download](https://github.com/azurecurve/azrcrv-snippets/releases/latest/)
+* String Inspector - [details](https://development.azurecurve.co.uk/classicpress-plugins/string-inspector/) / [download](https://github.com/azurecurve/azrcrv-string-inspector/releases/latest/)
+* Strong Password Generator - [details](https://development.azurecurve.co.uk/classicpress-plugins/strong-password-generator/) / [download](https://github.com/azurecurve/azrcrv-strong-password-generator/releases/latest/)
+* Tag Cloud - [details](https://development.azurecurve.co.uk/classicpress-plugins/tag-cloud/) / [download](https://github.com/azurecurve/azrcrv-tag-cloud/releases/latest/)
+* Taxonomy Index - [details](https://development.azurecurve.co.uk/classicpress-plugins/taxonomy-index/) / [download](https://github.com/azurecurve/azrcrv-taxonomy-index/releases/latest/)
+* Taxonomy Order - [details](https://development.azurecurve.co.uk/classicpress-plugins/taxonomy-order/) / [download](https://github.com/azurecurve/azrcrv-taxonomy-order/releases/latest/)
+* Theme Switcher - [details](https://development.azurecurve.co.uk/classicpress-plugins/theme-switcher/) / [download](https://github.com/azurecurve/azrcrv-theme-switcher/releases/latest/)
+* Timelines - [details](https://development.azurecurve.co.uk/classicpress-plugins/timelines) / [download](https://github.com/azurecurve/azrcrv-timelines/releases/latest/)
+* Timelines - [details](https://development.azurecurve.co.uk/classicpress-plugins/timelines/) / [download](https://github.com/azurecurve/azrcrv-timelines/releases/latest/)
+* Toggle Show/Hide - [details](https://development.azurecurve.co.uk/classicpress-plugins/toggle-showhide/) / [download](https://github.com/azurecurve/azrcrv-toggle-showhide/releases/latest/)
+* Update Admin Menu - [details](https://development.azurecurve.co.uk/classicpress-plugins/update-admin-menu/) / [download](https://github.com/azurecurve/azrcrv-update-admin-menu/releases/latest/)
+* URL Shortener - [details](https://development.azurecurve.co.uk/classicpress-plugins/url-shortener/) / [download](https://github.com/azurecurve/azrcrv-url-shortener/releases/latest/)
+* Username Protection - [details](https://development.azurecurve.co.uk/classicpress-plugins/username-protection/) / [download](https://github.com/azurecurve/azrcrv-username-protection/releases/latest/)
+* View Counter - [details](https://development.azurecurve.co.uk/classicpress-plugins/view-counter/) / [download](https://github.com/azurecurve/azrcrv-view-counter/releases/latest/)
+* Widget Announcements - [details](https://development.azurecurve.co.uk/classicpress-plugins/widget-announcements/) / [download](https://github.com/azurecurve/azrcrv-widget-announcements/releases/latest/)

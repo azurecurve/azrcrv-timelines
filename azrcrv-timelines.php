@@ -3,17 +3,17 @@
  * ------------------------------------------------------------------------------
  * Plugin Name:		Timelines
  * Description:		Create a timeline and place on pages or posts using the timeline shortcode.
- * Version:			1.7.5
+ * Version:			2.0.0
  * Requires CP:		1.0
- * Requires PHP:	7.4
+ * Requires PHP:	8.2
  * Author:			azurecurve
  * Author URI:		https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/timelines/
  * Donate link:		https://development.azurecurve.co.uk/support-development/
- * Text Domain:		timelines
+ * Text Domain:		azrcrv-t
  * Domain Path:		/assets/languages
- * License: 		GPLv2 or later
- * License URI: 	http://www.gnu.org/licenses/gpl-2.0.html
+ * License:			GPLv2 or later
+ * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
  * ------------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
  * version 2, or later. It is distributed WITHOUT ANY WARRANTY; without even the
@@ -22,650 +22,111 @@
  * ------------------------------------------------------------------------------
  */
 
-// Prevent direct access.
-if (!defined('ABSPATH')){
+/**
+ * Declare the Namespace.
+ */
+namespace azurecurve\Timelines;
+
+/**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
-// include plugin menu
-require_once(dirname( __FILE__).'/pluginmenu/menu.php');
-add_action('admin_init', 'azrcrv_create_plugin_menu_t');
+/**
+ * Define constants.
+ */
+const DEVELOPER_SHORTNAME = 'azurecurve';
+const DEVELOPER_NAME      = DEVELOPER_SHORTNAME . ' | Development';
+const DEVELOPER_RAW_LINK  = 'https://development.azurecurve.co.uk/classicpress-plugins/';
+const DEVELOPER_LINK      = '<a href="' . DEVELOPER_RAW_LINK . '">' . DEVELOPER_NAME . '</a>';
 
-// include update client
-require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
+const PLUGIN_NAME       = 'Timelines';
+const PLUGIN_SHORT_SLUG = 'timelines';
+const PLUGIN_SLUG       = 'azrcrv-' . PLUGIN_SHORT_SLUG;
+const PLUGIN_HYPHEN     = 'azrcrv-t';
+const PLUGIN_UNDERSCORE = 'azrcrv_t';
+const PLUGIN_FILE       = __FILE__;
+
+// Option name under which settings are stored (see includes/functions-settings.php).
+// Left as the same literal value ('azrcrv-t') used by the pre-2.0.0 plugin so upgrading
+// keeps existing settings without any migration step.
+const SETTINGS_OPTION_NAME = PLUGIN_HYPHEN;
+
+// Custom post type, taxonomy and post-meta keys - kept identical to the pre-2.0.0 plugin so
+// upgrading never loses or orphans any existing timeline entries.
+const CPT_SLUG      = 'timeline-entry';
+const TAXONOMY_SLUG = 'timeline';
+const META_KEY      = 'timelines_metafields';
 
 /**
- * Setup registration activation hook, actions, filters and shortcodes.
+ * Load the remote update client, which integrates with azurecurve's own
+ * Update Manager server so this plugin updates the same way as the rest of
+ * the azurecurve plugin family.
  *
- * @since 1.0.0
- *
+ * NOTE: per the upgrade PRD, this file is left completely untouched - it
+ * already self-registers via UpdateClient::get_instance() at the bottom of
+ * the file, exactly as it did before this upgrade.
  */
-// add actions
-add_action('admin_menu', 'azrcrv_t_create_admin_menu');
-add_action('admin_post_azrcrv_t_save_options', 'azrcrv_t_save_options');
-add_action('init', 'azrcrv_t_create_custom_post_type');
-add_action('init', 'azrcrv_t_create_timeline_taxonomy', 0);
-add_action('add_meta_boxes', 'azrcrv_t_add_meta_box');
-add_action('save_post', 'azrcrv_t_save_meta_box');
-add_action('plugins_loaded', 'azrcrv_t_load_languages');
-
-// add filters
-add_filter('the_posts', 'azrcrv_t_check_for_shortcode', 10, 2);
-add_filter('plugin_action_links', 'azrcrv_t_add_plugin_action_link', 10, 2);
-add_filter('codepotent_update_manager_image_path', 'azrcrv_t_custom_image_path');
-add_filter('codepotent_update_manager_image_url', 'azrcrv_t_custom_image_url');
-
-// add shortcodes
-add_shortcode('timeline', 'azrcrv_t_shortcode');
-add_shortcode('TIMELINE', 'azrcrv_t_shortcode');
+require_once dirname( PLUGIN_FILE ) . '/libraries/updateclient/UpdateClient.class.php';
 
 /**
- * Load language files.
- *
- * @since 1.0.0
- *
+ * Load activation/deactivation functions.
  */
-function azrcrv_t_load_languages() {
-    $plugin_rel_path = basename(dirname(__FILE__)).'/languages';
-    load_plugin_textdomain('timelines', false, $plugin_rel_path);
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-activation.php';
 
 /**
- * Check if shortcode on current page and then load css and jqeury.
- *
- * @since 1.0.0
- *
+ * Load settings functions.
  */
-function azrcrv_t_check_for_shortcode($posts){
-    if (empty($posts)){
-        return $posts;
-	}
-	
-	
-	// array of shortcodes to search for
-	$shortcodes = array(
-						'timeline','TIMELINE'
-						);
-	
-    // loop through posts
-    $found = false;
-    foreach ($posts as $post){
-		// loop through shortcodes
-		foreach ($shortcodes as $shortcode){
-			// check the post content for the shortcode
-			if (has_shortcode($post->post_content, $shortcode)){
-				$found = true;
-				// break loop as shortcode found in page content
-				break 2;
-			}
-		}
-	}
- 
-    if ($found){
-		// as shortcode found call functions to load css and jquery
-        azrcrv_t_load_css();
-    }
-    return $posts;
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-settings.php';
 
 /**
- * Load CSS.
- *
- * @since 1.0.0
- *
+ * Load custom post type / taxonomy registration.
  */
-function azrcrv_t_load_css(){
-	wp_enqueue_style('azrcrv-t', plugins_url('assets/css/style.css', __FILE__), '', '1.0.0');
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-post-type.php';
 
 /**
- * Custom plugin image path.
- *
- * @since 1.3.0
- *
+ * Load the "Timeline Link" meta box.
  */
-function azrcrv_t_custom_image_path($path){
-    if (strpos($path, 'azrcrv-timelines') !== false){
-        $path = plugin_dir_path(__FILE__).'assets/pluginimages';
-    }
-    return $path;
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-meta-box.php';
 
 /**
- * Custom plugin image url.
- *
- * @since 1.3.0
- *
+ * Load the [timeline] shortcode handler and its output templates.
  */
-function azrcrv_t_custom_image_url($url){
-    if (strpos($url, 'azrcrv-timelines') !== false){
-        $url = plugin_dir_url(__FILE__).'assets/pluginimages';
-    }
-    return $url;
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-shortcode.php';
 
 /**
- * Get options including defaults.
- *
- * @since 1.4.0
- *
+ * Load admin menu functions.
  */
-function azrcrv_t_get_option($option_name){
- 
-	$defaults = array(
-						'color' => '#007FFF',
-						'default' => '',
-						'date' => 'd/m/Y',
-						'dateleftalignment' => '-150px',
-						'orderby' => 'Ascending',
-						'integrate-with-flags-and-nearby' => 0,
-						'flag-width' => 16,
-					);
-
-	$options = get_option($option_name, $defaults);
-
-	$options = wp_parse_args($options, $defaults);
-
-	return $options;
-
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-menu.php';
 
 /**
- * Add Timelines action link on plugins page.
- *
- * @since 1.0.0
- *
+ * Load custom plugin icon/banner path functions, used by Update Manager.
  */
-function azrcrv_t_add_plugin_action_link($links, $file){
-	static $this_plugin;
-
-	if (!$this_plugin){
-		$this_plugin = plugin_basename(__FILE__);
-	}
-
-	if ($file == $this_plugin){
-		$settings_link = '<a href="'.admin_url('admin.php?page=azrcrv-t').'"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'timelines').'</a>';
-		array_unshift($links, $settings_link);
-	}
-
-	return $links;
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-plugin-images.php';
 
 /**
- * Add to menu.
- *
- * @since 1.0.0
- *
+ * Load the shared azurecurve cross-plugin menu: populates this plugin's
+ * entry into the shared directory of azurecurve plugins, and (if not
+ * already added by another azurecurve plugin on this site) registers the
+ * shared top-level "azurecurve" admin menu page that lists them all.
  */
-function azrcrv_t_create_admin_menu(){
-	
-	// add settings to timelines submenu
-	add_submenu_page(
-				'edit.php?post_type=timeline-entry'
-				,esc_html__('Timelines Settings', 'timelines')
-				,esc_html__('Settings', 'timelines')
-				,'manage_options'
-				,'azrcrv-t'
-				,'azrcrv_t_display_options');
-	
-	// add settings to azurecurve menu
-	add_submenu_page("azrcrv-plugin-menu"
-						,esc_html__("Timelines Settings", "timelines")
-						,esc_html__("Timelines", "timelines")
-						,'manage_options'
-						,'azrcrv-t'
-						,'azrcrv_t_display_options');
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/azurecurve-menu-populate.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/azurecurve-menu-display.php';
 
 /**
- * Display Settings page.
- *
- * @since 1.0.0
- *
+ * Load admin/front-end script and style enqueue functions.
  */
-function azrcrv_t_display_options(){
-	if (!current_user_can('manage_options')){
-		$error = new WP_Error('not_found', esc_html__('You do not have sufficient permissions to access this page.' , 'timelines'), array('response' => '200'));
-		if(is_wp_error($error)){
-			wp_die($error, '', $error->get_error_data());
-		}
-    }
-	
-	// Retrieve plugin site options from database
-	$options = azrcrv_t_get_option('azrcrv-t');
-	?>
-	<div id="azrcrv-t-general" class="wrap">
-		<fieldset>
-			<h1>
-				<?php
-					echo '<a href="https://development.azurecurve.co.uk/classicpress-plugins/"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-right: 6px; height: 20px; width: 20px;" alt="azurecurve" /></a>';
-					esc_html_e(get_admin_page_title());
-				?>
-			</h1>
-			<?php if(isset($_GET['options-updated'])){ ?>
-				<div class="notice notice-success is-dismissible">
-					<p><strong><?php esc_html_e('Settings have been saved.','timelines') ?></strong></p>
-				</div>
-			<?php } ?>
-
-			<form method="post" action="admin-post.php">
-				<input type="hidden" name="action" value="azrcrv_t_save_options" />
-				<input name="page_options" type="hidden" value="color,timeline,date" />
-				
-				<!-- Adding security through hidden referrer field -->
-				<?php wp_nonce_field('azrcrv-t', 'azrcrv-t-nonce'); ?>
-				<table class="form-table">
-				
-					<tr><th scope="row"><label for="explanation"><?php esc_html_e('Shortcode usage', 'timelines'); ?></label></th>
-					<td>
-						<p class="description"><?php esc_html_e('All parameters except slug are optional: [timeline slug=\'test-timeline\' color=\'green\' orderby=\'DESC/ASC\' date=\'d/m/Y\' left=\'-150px\']', 'timelines'); ?></p>
-					</td></tr>
-					
-					<tr><th scope="row"><label for="color"><?php esc_html_e('Default Color', 'timelines'); ?></label></th><td>
-						<input type="text" name="color" value="<?php echo esc_html(stripslashes($options['color'])); ?>" class="regular-text" />
-						<p class="description"><?php esc_html_e('Specify default color of timeline (this can be overriden in the shortcode using the parameter "color=#007FFF;")', 'timelines'); ?></p>
-					</td></tr>
-					
-					<tr><th scope="row"><label for="timeline"><?php esc_html_e('Default Timeline', 'timelines'); ?></label></th><td>
-						<select name="timeline" style="width: 200px;">
-						<?php
-							$timelines = get_terms('timeline', array('orderby' => 'name', 'hide_empty' => 0));
-							if ($timelines){
-								foreach ($timelines as $timeline){
-									//echo '|'.$timeline->term_id.'|';
-									echo "<option value='".$timeline->term_id."' ";
-									if (isset($options["timeline"])){
-										$timeline_option = $options["timeline"];
-									}else{
-										$timeline_option= '';
-									}
-									echo selected($timeline_option, $timeline->term_id).">";
-									echo esc_html($timeline->name);
-									echo "</option>";
-								}        
-							}
-						?>
-						</select>
-					</td></tr>
-					
-					<tr><th scope="row"><label for="date"><?php esc_html_e('Default Date Format', 'timelines'); ?></label></th><td>
-						<input type="text" name="date" value="<?php echo esc_html(stripslashes($options['date'])); ?>" class="regular-text" />
-						<p class="description"><?php esc_html_e('Specify default date format (default is d/M/Y)', 'timelines'); ?></p>
-					</td></tr>
-					
-					<tr><th scope="row"><label for="dateleftalignment"><?php esc_html_e('Date Left Alignment', 'timelines'); ?></label></th><td>
-						<input type="text" name="dateleftalignment" value="<?php echo esc_html(stripslashes($options['dateleftalignment'])); ?>" class="regular-text" />
-						<p class="description"><?php esc_html_e('Specify left alignment for date (default for d/M/Y is -150px)', 'timelines'); ?></p>
-					</td></tr>
-					
-					<tr><th scope="row"><label for="orderby"><?php esc_html_e('Default Timeline Order By', 'timelines'); ?></label></th><td>
-						<select name="orderby" style="width: 200px;">
-						<?php
-							$orderbyarray = array('Ascending', 'Descending');
-							foreach ($orderbyarray as $orderby){
-								echo "<option value='".$orderby."' ";
-								echo selected($options["orderby"], $orderby).">";
-								echo esc_html($orderby);
-								echo "</option>";
-							}
-						?>
-						</select>
-					</td></tr>
-				
-					<?php
-					if (azrcrv_t_is_plugin_active('azrcrv-flags/azrcrv-flags.php')){
-						$flags = '<a href="admin.php?page=azrcrv-f">Flags</a>';
-						$flags_active = true;
-					}else{
-						$flags = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/flags/">Flags</a>';
-						$flags_active = false;
-					}
-					?>
-					<?php
-					if (azrcrv_t_is_plugin_active('azrcrv-nearby/azrcrv-nearby.php')){
-						$nearby = '<a href="admin.php?page=azrcrv-n">Nearby</a>';
-						$nearby_active = true;
-					}else{
-						$nearby = '<a href="https://development.azurecurve.co.uk/classicpress-plugins/nearby/">Nearby</a>';
-						$nearby_active = false;
-					}
-					?>
-					<tr><th scope="row"><label for="integrate-with-flags-and-nearby"><?php printf(esc_html__('Display country flag?', 'timelines'), $flags, $nearby); ?></label></th><td>
-						<?php
-							if ($flags_active AND $nearby_active){ ?>
-								<fieldset><legend class="screen-reader-text"><span><?php printf(esc_html_e('Integrate with %s and %s to display country flag?', 'timelines'), $flags, $nearby); ?></span></legend>
-									<label for="integrate-with-flags-and-nearby"><input name="integrate-with-flags-and-nearby" type="checkbox" id="integrate-with-flags-and-nearby" value="1" <?php checked('1', $options['integrate-with-flags-and-nearby']); ?> /><?php esc_html_e('Display flag next to timeline entry', 'timelines'); ?></label>
-								</fieldset>
-							<?php
-							}else{
-								printf(esc_html__('Both %s and %s must be active for this function to be available.', 'timelines'), $flags, $nearby);
-							}
-						?>
-					</td></tr>
-						
-					<?php if ($flags_active AND $nearby_active){ ?>
-						<tr><th scope="row"><?php esc_html_e('Flag width?', 'flags'); ?></th><td>
-							<fieldset><legend class="screen-reader-text"><span><?php esc_html_e('Flag width', 'flags'); ?></span></legend>
-								<label for="flag-width"><input type="number" name="flag-width" class="small-text" value="<?php echo $options['flag-width']; ?>" />px</label>
-							</fieldset>
-						</td></tr>
-					<?php } ?>
-					
-				</table>
-				<input type="submit" value="<?php esc_html_e('Submit', 'timelines'); ?>" class="button-primary"/>
-			</form>
-		</fieldset>
-	</div>
-	<?php
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-scripts.php';
 
 /**
- * Check if function active (included due to standard function failing due to order of load).
- *
- * @since 1.2.0
- *
+ * Load language functions.
  */
-function azrcrv_t_is_plugin_active($plugin){
-    return in_array($plugin, (array) get_option('active_plugins', array()));
-}
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-language.php';
 
 /**
- * Save settings.
- *
- * @since 1.0.0
- *
+ * Load setup of activation/deactivation hooks, actions and filters. This is
+ * required last, since it references functions declared in the files above.
  */
-function azrcrv_t_save_options(){
-	// Check that user has proper security level
-	if (!current_user_can('manage_options')){
-		$error = new WP_Error('not_found', esc_html__('You do not have sufficient permissions to perform this action.' , 'timelines'), array('response' => '200'));
-		if(is_wp_error($error)){
-			wp_die($error, '', $error->get_error_data());
-		}
-    }
-	
-	// Check that nonce field created in configuration form is present
-	if (! empty($_POST) && check_admin_referer('azrcrv-t', 'azrcrv-t-nonce')){
-		// Retrieve original plugin options array
-		$options = get_option('azrcrv-t');
-		
-		$option_name = 'color';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
-		}
-		
-		$option_name = 'timeline';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
-		}
-		
-		$option_name = 'date';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
-		}
-		
-		$option_name = 'dateleftalignment';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
-		}
-		$option_name = 'orderby';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field($_POST[$option_name]);
-		}
-		
-		$option_name = 'integrate-with-flags-and-nearby';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = 1;
-		}else{
-			$options[$option_name] = 0;
-		}
-		
-		$option_name = 'flag-width';
-		if (isset($_POST[$option_name])){
-			$options[$option_name] = sanitize_text_field(intval($_POST[$option_name]));
-		}
-		
-		update_option('azrcrv-t', $options);
-		
-		// Redirect the page to the configuration form that was processed
-		wp_redirect(add_query_arg('page', 'azrcrv-t&options-updated', admin_url('admin.php')));
-		exit;
-	}
-}
-
-/**
- * Display timeline in shortcode.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_shortcode($atts, $content = null){
-	
-	global $wpdb;
-	// Retrieve plugin configuration options from database
-	$options = azrcrv_t_get_option('azrcrv-t');
-	
-	$args = shortcode_atts(array(
-		'slug' => stripslashes(sanitize_text_field($options['default'])),
-		'color' => stripslashes(sanitize_text_field($options['color'])),
-		'date' => stripslashes(sanitize_text_field($options['date'])),
-		'left' => stripslashes(sanitize_text_field($options['dateleftalignment'])),
-		'orderby' => stripslashes(sanitize_text_field($options['orderby'])),
-	), $atts);
-	$slug = $args['slug'];
-	$color = $args['color'];
-	$date = $args['date'];
-	$left = $args['left'];
-	$orderby = $args['orderby'];
-	
-	if ($color == ''){ $color = '#000'; }
-	if ($date == ''){ $date = 'd/m/Y'; }
-	if ($orderby != 'ASC' and $orderby != 'DESC'){
-		if ($orderby == 'Descending'){
-			$orderby = 'DESC';
-		}else{
-			$orderby = 'ASC';
-		}
-	}
-	if ($left == ''){ $left = '150px'; }
-	$left = 'style="left:'.$left.'; "';
-	
-	$sql = $wpdb->prepare("select p.ID,p.post_date,p.post_title,p.post_name,p.post_content,t.name,t.slug from ".$wpdb->prefix."posts as p
-			inner join ".$wpdb->prefix."term_relationships as tr on tr.object_id = p.ID
-			inner join ".$wpdb->prefix."term_taxonomy as tt on tt.term_taxonomy_id = tr.term_taxonomy_id
-			inner join ".$wpdb->prefix."terms as t on t.term_id = tt.term_id
-			where post_type = 'timeline-entry' and post_status = 'publish' and t.slug = %s
-			order by post_date ".$orderby, $slug);
-	//echo $sql;
-	$return = "<div style='display: block; clear: both; '><ul id='azrcrv-t' style='border-left-color: $color; '>";
-	$count = 0;
-	$timeline_entries = $wpdb->get_results($sql);
-	foreach ($timeline_entries as $timeline_entry){
-		$count++;
-		$return .= "<li class='azrcrv-t-work'>
-			<div class='azrcrv-t-relative'>
-			  <span class='azrcrv-t-title'><label class='azcrv-t' for='azrcrv-t-work$count'>".$timeline_entry->post_title;
-			  
-		// get link
-		$meta_fields = get_post_meta($timeline_entry->ID, 'timelines_metafields', true);
-		if (is_array($meta_fields)){
-			if (isset($meta_fields['timeline-link'])){
-				if (strlen($meta_fields['timeline-link']) > 0){
-					$linked_post_id = url_to_postid($meta_fields['timeline-link']);
-					if (azrcrv_t_is_plugin_active('azrcrv-flags/azrcrv-flags.php') AND azrcrv_t_is_plugin_active('azrcrv-nearby/azrcrv-nearby.php') AND $options['integrate-with-flags-and-nearby'] == 1){
-						$linked_post_country = get_post_meta( $linked_post_id, '_azrcrv_n_country', true );
-						// get country and display flag
-						if (strlen($linked_post_country) > 0){
-							$return .= '&nbsp;'.azrcrv_f_flag(array( 'id' => $linked_post_country, 'width' => $options['flag-width'].'px'));
-						}
-					}
-					$return .= "&nbsp;<a href='".$meta_fields['timeline-link']."'><img class='timelines' src='".plugin_dir_url(__FILE__)."assets/images/link.png' /></a>";
-		
-				}
-			}
-		}
-		$return .= "</label></span>
-			  <span class='azrcrv-t-date' $left>".Date($date, strtotime($timeline_entry->post_date))."</span>
-			  <span class='azrcrv-t-circle' style='border-color: $color; '></span>
-			</div>";
-		if (strlen($timeline_entry->post_content) > 0){
-		$return .= "
-			<div class='azrcrv-t-content'>
-			  <p>
-				".$timeline_entry->post_content."
-			  </p>
-			</div>";
-		}
-		$return .= "
-		  </li>";
-	}
-	$return .= "</ul></div>";
-	return $return;
-}
-
-/**
- * Create custom Timeline post type.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_create_custom_post_type(){
-	register_post_type('timeline-entry',
-		array(
-				'labels' => array(
-									'name' => esc_html__('Timelines', 'timelines'),
-									'singular_name' => esc_html__('Timeline Entry', 'timelines'),
-									'add_new' => esc_html__('Add New', 'timelines'),
-									'add_new_item' => esc_html__('Add New Timeline Entry', 'timelines'),
-									'edit' => esc_html__('Edit', 'timelines'),
-									'edit_item' => esc_html__('Edit Timeline Entry', 'timelines'),
-									'new_item' => esc_html__('New Timeline Entry', 'timelines'),
-									'view' => esc_html__('View', 'timelines'),
-									'view_item' => esc_html__('View Timeline Entry', 'timelines'),
-									'search_items' => esc_html__('Search Timeline Entries', 'timelines'),
-									'not_found' => esc_html__('No Timeline Entry found', 'timelines'),
-									'not_found_in_trash' => esc_html__('No Timeline Entries found in Trash', 'timelines'),
-									'parent' => esc_html__('Parent Timeline Entry', 'timelines')
-								),
-			'public' => true,
-			'exclude_from_search' => true,
-			'publicly_queryable' => false,
-			'menu_position' => 20,
-			'supports' => array('title', 'revisions', 'excerpt', 'editor'),
-			'taxonomies' => array(''),
-			'menu_icon' => plugins_url('assets/images/timelines-16x16.png', __FILE__),
-			'has_archive' => false
-		)
-	);
-}
-
-/**
- * Register Timeline taxonomy.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_create_timeline_taxonomy(){
-$labels = array(
-		'name'              => esc_html__('Categories', 'timelines'),
-		'singular_name'     => esc_html__('Category', 'timelines'),
-		'search_items'      => esc_html__('Search Categories', 'timelines'),
-		'all_items'         => esc_html__('All Categories', 'timelines'),
-		'parent_item'       => esc_html__('Parent Category', 'timelines'),
-		'parent_item_colon' => esc_html__('Parent Category:', 'timelines'),
-		'edit_item'         => esc_html__('Edit Category', 'timelines'),
-		'update_item'       => esc_html__('Update Category', 'timelines'),
-		'add_new_item'      => esc_html__('Add New Category', 'timelines'),
-		'new_item_name'     => esc_html__('New Category', 'timelines'),
-		'menu_name'         => esc_html__('Categories', 'timelines'),
-	);
-
-	$args = array(
-		'hierarchical'      => true,
-		'labels'            => $labels,
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array('slug' => 'timeline'),
-	);
-
-	register_taxonomy('timeline', 'timeline-entry', $args);
-
-}
-
-/**
- * Add meta hox.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_add_meta_box(){
-	add_meta_box(
-		'timelines_meta_box', // $id
-		'Timeline Entry Meta Fields', // $title
-		'azrcrv_t_show_meta_box', // $callback
-		'timeline-entry', // $screen
-		'normal', // $context
-		'high' // $priority
-	);
-}
-
-
-/**
- * Show meta box.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_show_meta_box(){
-	global $post;  
-	
-	$meta_fields = get_post_meta($post->ID, 'timelines_metafields', true); ?>
-
-	<input type="hidden" name="timelines_meta_box_nonce" value="<?php echo wp_create_nonce(basename(__FILE__)); ?>">
-
-	<p>
-		<label for="timelines_metafields[timeline-link]">Timeline Link</label>
-		&nbsp;&nbsp;&nbsp;
-		<input type="text" name="timelines_metafields[timeline-link]" id="timelines_metafields[timeline-link]" style="width: 100%; " value="<?php if (isset($meta_fields['timeline-link'])) { echo $meta_fields['timeline-link']; } ?>">
-	</p>
-
-<?php
-
-}
-
-/**
- * Save meta box.
- *
- * @since 1.0.0
- *
- */
-function azrcrv_t_save_meta_box($post_id){   
-	// verify nonce
-	if (!isset($_POST['timelines_meta_box_nonce']) OR !wp_verify_nonce($_POST['timelines_meta_box_nonce'], basename(__FILE__))){
-		return $post_id; 
-	}
-	// check autosave
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-		return $post_id;
-	}
-	// check permissions
-	if ('page' === $_POST['timeline-link']){
-		if (!current_user_can('edit_page', $post_id)){
-			return $post_id;
-		} elseif (!current_user_can('edit_post', $post_id)){
-			return $post_id;
-		}  
-	}
-	
-	$old = get_post_meta($post_id, 'timelines_metafields', true);
-	$new = $_POST['timelines_metafields'];
-
-	if ($new && $new !== $old){
-		update_post_meta($post_id, 'timelines_metafields', $new);
-	} elseif ('' === $new && $old){
-		delete_post_meta($post_id, 'timelines_metafields', $old);
-	}
-}
-
-?>
+require_once dirname( PLUGIN_FILE ) . '/includes/setup.php';

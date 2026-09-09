@@ -1,0 +1,219 @@
+/*
+	Timelines front-end styles.
+
+	Every style below reads its colour and date position from two CSS
+	custom properties set inline on the wrapping .azrcrv-t element by the
+	shortcode (see includes/functions-shortcode.php):
+
+		--azrcrv-t-color         the timeline's accent colour
+		--azrcrv-t-date-offset   horizontal offset for the date (Classic style only)
+
+	To restyle a timeline from a theme stylesheet, either override these
+	custom properties on .azrcrv-t, or override the classes below directly -
+	nothing here relies on additional inline styles per element, so no
+	!important is needed either way.
+*/
+
+.azrcrv-t {
+	display: block;
+	clear: both;
+	--azrcrv-t-color: #007FFF;
+	--azrcrv-t-date-offset: -150px;
+}
+
+.azrcrv-t-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.azrcrv-t-empty {
+	font-style: italic;
+}
+
+.azrcrv-t-link-icon {
+	height: 16px;
+	width: 16px;
+	vertical-align: middle;
+}
+
+.azrcrv-t-content p:last-child {
+	margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------------------
+	Classic style: a single vertical line with the date offset into the
+	left-hand gutter. This is the refined version of the plugin's
+	pre-2.0.0 (and only) look, kept as the default so existing pages don't
+	visually change on upgrade unless a different style is chosen.
+------------------------------------------------------------------------- */
+
+.azrcrv-t-style-classic .azrcrv-t-list {
+	position: relative;
+	margin-left: 150px;
+	padding-left: 24px;
+	border-left: 3px solid var(--azrcrv-t-color);
+}
+
+.azrcrv-t-style-classic .azrcrv-t-entry {
+	position: relative;
+	padding-bottom: 28px;
+}
+
+.azrcrv-t-style-classic .azrcrv-t-entry:last-child {
+	padding-bottom: 0;
+}
+
+.azrcrv-t-style-classic .azrcrv-t-circle {
+	position: absolute;
+	left: -33px;
+	top: 4px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #fff;
+	border: 3px solid var(--azrcrv-t-color);
+	box-sizing: border-box;
+}
+
+.azrcrv-t-style-classic .azrcrv-t-date {
+	position: absolute;
+	left: var(--azrcrv-t-date-offset);
+	top: 0;
+	white-space: nowrap;
+	color: #666;
+}
+
+.azrcrv-t-style-classic .azrcrv-t-title {
+	font-weight: 700;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.azrcrv-t-style-classic .azrcrv-t-content {
+	margin-top: 4px;
+}
+
+@media screen and (max-width: 600px) {
+	.azrcrv-t-style-classic .azrcrv-t-list {
+		margin-left: 12px;
+	}
+	.azrcrv-t-style-classic .azrcrv-t-date {
+		position: static;
+		display: block;
+		margin-bottom: 4px;
+	}
+}
+
+/* ----------------------------------------------------------------------
+	Alternating style: entries zigzag left/right of a centred line.
+------------------------------------------------------------------------- */
+
+.azrcrv-t-style-alternating .azrcrv-t-list {
+	position: relative;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-list::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	width: 3px;
+	background: var(--azrcrv-t-color);
+	transform: translateX(-50%);
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-entry {
+	position: relative;
+	width: 50%;
+	box-sizing: border-box;
+	padding: 0 34px 40px;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-entry-left {
+	left: 0;
+	text-align: right;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-entry-right {
+	left: 50%;
+	text-align: left;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-circle {
+	position: absolute;
+	top: 4px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #fff;
+	border: 3px solid var(--azrcrv-t-color);
+	box-sizing: border-box;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-entry-left .azrcrv-t-circle {
+	right: -8px;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-entry-right .azrcrv-t-circle {
+	left: -8px;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-date {
+	display: block;
+	color: #666;
+	font-size: 0.9em;
+	margin-bottom: 4px;
+}
+
+.azrcrv-t-style-alternating .azrcrv-t-title {
+	font-weight: 700;
+	display: block;
+	margin-bottom: 4px;
+}
+
+@media screen and (max-width: 600px) {
+	.azrcrv-t-style-alternating .azrcrv-t-list::before {
+		left: 8px;
+	}
+	.azrcrv-t-style-alternating .azrcrv-t-entry,
+	.azrcrv-t-style-alternating .azrcrv-t-entry-left,
+	.azrcrv-t-style-alternating .azrcrv-t-entry-right {
+		width: 100%;
+		left: 0;
+		text-align: left;
+		padding: 0 0 32px 34px;
+	}
+	.azrcrv-t-style-alternating .azrcrv-t-entry-left .azrcrv-t-circle,
+	.azrcrv-t-style-alternating .azrcrv-t-entry-right .azrcrv-t-circle {
+		left: 0;
+		right: auto;
+	}
+}
+
+/* ----------------------------------------------------------------------
+	Compact style: single-line date + title, description hidden. Best for
+	long timelines where the Classic/Alternating layouts get unwieldy.
+------------------------------------------------------------------------- */
+
+.azrcrv-t-style-compact .azrcrv-t-list {
+	border-left: 3px solid var(--azrcrv-t-color);
+	padding-left: 14px;
+}
+
+.azrcrv-t-style-compact .azrcrv-t-entry {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 10px;
+	padding: 5px 0;
+}
+
+.azrcrv-t-style-compact .azrcrv-t-date {
+	font-weight: 700;
+	color: var(--azrcrv-t-color);
+	min-width: 110px;
+}
